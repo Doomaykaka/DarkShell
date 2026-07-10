@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"dark_shell"},{"l":"dark_shell.models.cyberpunk"},{"l":"dark_shell.models.fantasy"},{"l":"dark_shell.models.post_apocalypse"},{"l":"dark_shell.utils"}];updateSearchResults();

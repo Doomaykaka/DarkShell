@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
 }
 
-var version = [0, 1, 0]
+var version = [0, 2, 0]
 
 dependencies {
     // Use JUnit Jupiter for testing.
@@ -40,7 +40,7 @@ java {
 jar{
   	manifest {
         attributes(
-                'Main-Class': 'dark-shell.App'
+                'Main-Class': 'dark_shell.App'
         )
     }
 
@@ -57,7 +57,7 @@ jar{
 
 application {
     // Define the main class for the application.
-    mainClass = 'dark-shell.App'
+    mainClass = 'dark_shell.App'
 }
 
 tasks.named('test') {
