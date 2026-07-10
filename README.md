@@ -50,7 +50,7 @@
 
 IDEF1X схема БД:
 
-![IDEF1X](docs-images/idef1x.jpg)
+![IDEF1X](doc-images/idef1x.jpg)
 
 Сущности и их поля в БД:
 
@@ -123,7 +123,7 @@ IDEF1X схема БД:
 
 UML схема приложения:
 
-![UML](docs-images/uml.jpg)
+![UML](doc-images/uml.jpg)
 
 Элементы системы:
 
