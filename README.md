@@ -123,7 +123,7 @@ IDEF1X схема БД:
 
 UML схема приложения:
 
-![UML](doc-images/uml.jpg)
+![UML](doc-images/UML.jpg)
 
 Элементы системы:
 
