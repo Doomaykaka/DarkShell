@@ -16,15 +16,25 @@ repositories {
 var version = [0, 2, 0]
 
 dependencies {
-    // Use JUnit Jupiter for testing.
+    // Testing
     testImplementation libs.junit.jupiter
-
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation 'com.diffplug.spotless:spotless-plugin-gradle:7.0.0'
+    // ORM and database
+    implementation 'org.hibernate:hibernate-entitymanager:5.0.0.Final'
+    implementation 'org.hibernate:hibernate-core:5.0.0.Final'
+    implementation 'org.hibernate.common:hibernate-commons-annotations:5.0.0.Final'
+    implementation 'org.hibernate:hibernate-validator:5.0.0.Final'
 
-    // This dependency is used by the application.
-    implementation libs.guava
+    implementation 'org.xerial:sqlite-jdbc:3.50.3.0'
+
+    implementation 'javax.persistence:javax.persistence-api:2.2'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'javax.xml.bind:jaxb-api:2.0'
+    implementation 'org.javassist:javassist:3.25.0-GA'
+
+    // Database
+    implementation 'org.xerial:sqlite-jdbc:3.50.3.0'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -32,6 +42,9 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 
     withJavadocJar()
     withSourcesJar()
