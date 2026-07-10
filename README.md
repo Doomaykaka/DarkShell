@@ -96,7 +96,7 @@ IDEF1X схема БД:
 40. **fantasy_characteristics.mage_guild_faction_points** (очки фракции магов, тип данных long)
 41. **fantasy_characteristics.thieves_guild_faction_points** (очки фракции воров, тип данных long)
 42. **fantasy_characteristics.barbarian_tribe_faction_points** (очки племени варваров, тип данных long)
-43. **post_apocalypse_characteristics** (характеристики персонажей в фэнтези сеттинге)
+43. **post_apocalypse_characteristics** (характеристики персонажей в сеттинге постапокалипсиса)
 44. **post_apocalypse_characteristics.id** (номер характеристики, первичный ключ, тип данных long)
 45. **post_apocalypse_characteristics.level** (уровень персонажа, тип данных long)
 46. **post_apocalypse_characteristics.current_hp** (текущее здоровье персонажа, тип данных long)
@@ -123,7 +123,7 @@ IDEF1X схема БД:
 
 UML схема приложения:
 
-![UML](doc-images/uml.jpg)
+![UML](doc-images/uml.jpeg)
 
 Элементы системы:
 
@@ -135,13 +135,56 @@ UML схема приложения:
 6. **Utils.SupportFunctions** (класс со вспомогательными функциями)
 7. **Utils.HibernateConfiguration** (класс предоставляющий доступ и реализующий конфигурацию БД приложения)
 8. **Utils.CustomSQLiteDialect** (класс реализующий диалект СУБД SQLite для Hibernate)
-
+9. **Models** (модели приложения)
+10. **Models.Post apocalypse** (модели приложения в сеттинге постапокалипсиса)
+11. **Models.Post apocalypse.Hero** (класс реализующий персонажа в сеттинге постапокалипсиса)
+12. **Models.Post apocalypse.Location** (класс реализующий игровую локацию в сеттинге постапокалипсиса)
+13. **Models.Post apocalypse.Enemy** (класс реализующий врага в сеттинге постапокалипсиса)
+14. **Models.Post apocalypse.CombatInitiative** (класс реализующий инициативу боя в сеттинге постапокалипсиса)
+15. **Models.Post apocalypse.UsersMove** (класс реализующий ход персонажа в сеттинге постапокалипсиса)
+16. **Models.Post apocalypse.EnemysMove** (класс реализующий ход врага в сеттинге постапокалипсиса)
+17. **Models.Post apocalypse.Reward** (класс реализующий награду персонажа в сеттинге постапокалипсиса)
+18. **Models.Cyberpunk** (модели приложения в киберпанк сеттинге)
+19. **Models.Cyberpunk.Hero** (класс реализующий персонажа в киберпанк сеттинге)
+20. **Models.Cyberpunk.Location** (класс реализующий игровую локацию в киберпанк сеттинге)
+21. **Models.Cyberpunk.Enemy** (класс реализующий врага в киберпанк сеттинге)
+22. **Models.Cyberpunk.CombatInitiative** (класс реализующий инициативу боя в киберпанк сеттинге)
+23. **Models.Cyberpunk.UsersMove** (класс реализующий ход персонажа в киберпанк сеттинге)
+24. **Models.Cyberpunk.EnemysMove** (класс реализующий ход врага в киберпанк сеттинге)
+25. **Models.Cyberpunk.Reward** (класс реализующий награду персонажа в киберпанк сеттинге)
+26. **Models.Fantasy** (модели приложения в фэнтези сеттинге)
+27. **Models.Fantasy.Hero** (класс реализующий персонажа в фэнтези сеттинге)
+28. **Models.Fantasy.Location** (класс реализующий игровую локацию в фэнтези сеттинге)
+29. **Models.Fantasy.Enemy** (класс реализующий врага в фэнтези сеттинге)
+30. **Models.Fantasy.CombatInitiative** (класс реализующий инициативу боя в фэнтези сеттинге)
+31. **Models.Fantasy.UsersFightMove** (класс реализующий ближний бой героя в фэнтези сеттинге)
+32. **Models.Fantasy.UsersMagicalMove** (класс реализующий магию героя в фэнтези сеттинге)
+33. **Models.Fantasy.EnemysMove** (класс реализующий ход врага в фэнтези сеттинге)
+34. **Models.Fantasy.Reward** (класс реализующий награду персонажа в фэнтези сеттинге)
+35. **GUI** (графический интерфейс приложения)
+36. **GUI.MenuWindow** (окно меню приложения)
+37. **GUI.SaveLoadWindow** (окно сохранения/загрузки приложения)
+38. **GUI.OptionsWindow** (окно настроек приложения)
+39. **GUI.GameWindow** (игровое окно приложения)
+40. **Controllers** (классы с бизнес логикой приложения)
+41. **Controllers.PostApocalypseGameController** (бизнес логика игры в сеттинге постапокалипсиса)
+42. **Controllers.CyberpunkGameController** (бизнес логика игры в киберпанк сеттинге)
+43. **Controllers.FantasyGameController** (бизнес логика игры в фэнтези сеттинге)
+44. **Controllers.GameOperationsController** (бизнес логика сохранения, загрузки и настройки игры)
+45. **DAO** (классы с логикой доступа к данным)
+46. **GUI.CharactersDAO** (класс с логикой доступа к данным персонажей)
+47. **GUI.StatisticsDAO** (класс с логикой доступа к данным статистики игр)
+48. **GUI.CyberpunkCharacteristicsDAO** (класс с логикой доступа к данным персонажа в киберпанк сеттинге)
+49. **GUI.FantasyCharacteristicsDAO** (класс с логикой доступа к данным персонажа в фэнтези сеттинге)
+50. **GUI.PostApocalypseCharacteristicsDAO** (класс с логикой доступа к данным персонажа в сеттинге постапокалипсиса)
 
 ***
 
 ## 6 - Схема хранения данных
 
 В приложении осуществляется хранение данных о последнем игровом процессе и игровой статистике персонажа, новые элементы игрового процесса получаются путём процедурной генерации.
+
+Имеется поддержка и загрузка сохранений из файлов специального формата.
 
 ***
 
@@ -164,3 +207,4 @@ UML схема приложения:
 * **Launch4J**
 * **SWING**
 * **FlatLAF**
+* **Google Simple JSON**
