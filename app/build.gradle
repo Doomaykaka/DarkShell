@@ -13,12 +13,16 @@ repositories {
     mavenCentral()
 }
 
-var version = [0, 7, 0]
+var version = [0, 8, 0]
 
 dependencies {
     // Testing
     testImplementation libs.junit.jupiter
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // GUI
+    implementation 'com.formdev:flatlaf-intellij-themes:3.2.5'
+    implementation 'com.formdev:flatlaf:3.2.5'
 
     // ORM and database
     implementation 'org.hibernate:hibernate-entitymanager:5.0.0.Final'

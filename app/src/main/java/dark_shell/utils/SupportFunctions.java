@@ -4,9 +4,13 @@ import dark_shell.models.database.CyberpunkCharacteristic;
 import dark_shell.models.database.FantasyCharacteristic;
 import dark_shell.models.database.PostApocalypseCharacteristic;
 import dark_shell.models.database.Statistic;
+import java.awt.*;
 import java.io.*;
+import java.net.URL;
 import java.time.Instant;
 import java.util.*;
+import java.util.List;
+import javax.swing.*;
 
 public class SupportFunctions {
     public static long randomAtOneToFive() {
@@ -183,5 +187,45 @@ public class SupportFunctions {
         scanner.close();
 
         return fileContent;
+    }
+
+    public static Rectangle getWindowBounds(int width, int height) {
+        Rectangle bounds = null;
+
+        Rectangle screenSize = getScreenSize();
+        int xCenter = (int) (screenSize.getWidth() / 2);
+        int yCenter = (int) (screenSize.getHeight() / 2);
+
+        int windowX = xCenter - width / 2;
+        int windowY = yCenter - height / 2;
+
+        bounds = new Rectangle(windowX, windowY, width, height);
+
+        return bounds;
+    }
+
+    public static Rectangle getScreenSize() {
+        Rectangle screenSize = null;
+
+        Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        screenSize = new Rectangle((int) screenDimension.getWidth(), (int) screenDimension.getHeight());
+
+        return screenSize;
+    }
+
+    public static Image getAppIcon() {
+        Image appIcon = null;
+
+        URL appIconUrl = SupportFunctions.class.getResource("/dark_shell/images/app_icon.jpg");
+        appIcon = Toolkit.getDefaultToolkit().getImage(appIconUrl);
+
+        return appIcon;
+    }
+
+    public static ImageIcon getResourceImage(String name) {
+        String path = "dark_shell/images/" + name;
+        URL resourceURL = SupportFunctions.class.getClassLoader().getResource(path);
+
+        return new ImageIcon(resourceURL);
     }
 }

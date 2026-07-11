@@ -1,0 +1,177 @@
+package dark_shell.gui;
+
+import dark_shell.utils.Logger;
+import dark_shell.utils.SupportFunctions;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
+
+public class MenuWindow extends JFrame {
+    private ScreensaverWindow screensaverWindow = null;
+
+    private static final int WIDTH = 200;
+    private static final int HEIGHT = 375;
+    private static final String WINDOW_TITLE = "Menu";
+
+    public MenuWindow() {
+        boolean isResizable = false;
+
+        setTitle(WINDOW_TITLE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(WIDTH, HEIGHT);
+        setLocationRelativeTo(null);
+        setResizable(isResizable);
+
+        setIconImage(SupportFunctions.getAppIcon());
+
+        List<JButton> controls = fillWindowElements();
+        addButtonsActionListeners(controls);
+    }
+
+    public void showScreensaver() {
+        screensaverWindow = new ScreensaverWindow();
+        screensaverWindow.create();
+    }
+
+    public void showWindow() {
+        screensaverWindow.close();
+        setVisible(true);
+    }
+
+    private List<JButton> fillWindowElements() {
+        List<JButton> controls = new ArrayList<>();
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(40, 20, 40, 20));
+
+        JButton btnNewGame = new JButton("New game");
+        JButton btnLoadGame = new JButton("Load game");
+        JButton btnSaveGame = new JButton("Save game");
+        JButton btnSettings = new JButton("Settings");
+        JButton btnExit = new JButton("Exit");
+
+        int gap = 15;
+        addButtonWithGap(panel, btnNewGame, gap);
+        addButtonWithGap(panel, btnLoadGame, gap);
+        addButtonWithGap(panel, btnSaveGame, gap);
+        addButtonWithGap(panel, btnSettings, gap);
+        addButtonWithGap(panel, btnExit, gap);
+
+        controls.add(btnNewGame);
+        controls.add(btnLoadGame);
+        controls.add(btnSaveGame);
+        controls.add(btnSettings);
+        controls.add(btnExit);
+
+        add(panel);
+
+        return controls;
+    }
+
+    private void addButtonsActionListeners(List<JButton> buttons) {
+        // Обработчики событий
+        ActionListener listener = e -> {
+            String command = e.getActionCommand();
+            switch (command) {
+                case "New game":
+                    showMessage("Запуск новой игры...");
+                    break;
+                case "Load game":
+                    showMessage("Загрузка сохранённой игры...");
+                    break;
+                case "Save game":
+                    showMessage("Сохранение текущей игры...");
+                    break;
+                case "Settings":
+                    showMessage("Открытие меню настроек...");
+                    break;
+                case "Exit":
+                    int confirm = JOptionPane.showConfirmDialog(
+                            this, "Do you really want to get out?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    }
+                    break;
+            }
+        };
+
+        for (JButton button : buttons) {
+            button.addActionListener(listener);
+        }
+    }
+
+    // Вспомогательный метод: добавляет кнопку и вертикальный отступ
+    private static void addButtonWithGap(JPanel panel, JButton button, int gap) {
+        panel.add(button);
+        panel.add(Box.createRigidArea(new Dimension(0, gap)));
+    }
+
+    // Вспомогательный метод: показывает всплывающее сообщение
+    private static void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public class ScreensaverWindow {
+        private JFrame screensaverWindow;
+
+        private static final int SCREENSAVER_WIDTH = 665;
+        private static final int SCREENSAVER_HEIGHT = 380;
+
+        private static final String SCREENSAVER_WINDOW_TITLE = "Wait please";
+        private static final String SCREENSAVER_IMAGE = "screen.png";
+
+        public ScreensaverWindow() {
+            Logger.getInstance().info("creating");
+
+            init();
+            insertComponents();
+        }
+
+        private void init() {
+            Logger.getInstance().info("initialization");
+
+            boolean isResizable = false;
+
+            Dimension preferredSize = new Dimension(SCREENSAVER_WIDTH, SCREENSAVER_HEIGHT);
+
+            screensaverWindow = new JFrame(SCREENSAVER_WINDOW_TITLE);
+            screensaverWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            screensaverWindow.setLayout((LayoutManager) null);
+            screensaverWindow.setBounds(SupportFunctions.getWindowBounds(SCREENSAVER_WIDTH, SCREENSAVER_HEIGHT));
+            screensaverWindow.setPreferredSize(preferredSize);
+            screensaverWindow.setResizable(isResizable);
+
+            screensaverWindow.setIconImage(SupportFunctions.getAppIcon());
+        }
+
+        private void insertComponents() {
+            Logger.getInstance().info("components creation");
+
+            Container container = screensaverWindow.getContentPane();
+
+            ImageIcon screensaverImage = SupportFunctions.getResourceImage(SCREENSAVER_IMAGE);
+            JLabel imageLabel = new JLabel();
+            imageLabel.setIcon(screensaverImage);
+            imageLabel.setBounds(0, 0, SCREENSAVER_WIDTH, SCREENSAVER_HEIGHT);
+
+            container.add(imageLabel);
+
+            screensaverWindow.pack();
+        }
+
+        public void create() {
+            Logger.getInstance().info("launch");
+
+            SwingUtilities.invokeLater(() -> screensaverWindow.setVisible(true));
+        }
+
+        public void close() {
+            Logger.getInstance().info("close");
+
+            SwingUtilities.invokeLater(() -> screensaverWindow.dispose());
+        }
+    }
+}
