@@ -1,4 +1,5 @@
 dark_shell
+dark_shell.controllers
 dark_shell.dao
 dark_shell.dao.utils
 dark_shell.models.cyberpunk

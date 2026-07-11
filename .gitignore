@@ -60,3 +60,9 @@ replay_pid*
 
 # Vscode
 .vscode/
+
+# Application
+settings.conf
+ds.db
+ds.db-shm
+ds.db-wal

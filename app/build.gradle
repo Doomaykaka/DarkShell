@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
 }
 
-var version = [0, 5, 0]
+var version = [0, 6, 0]
 
 dependencies {
     // Testing
@@ -35,6 +35,9 @@ dependencies {
 
     // Database
     implementation 'org.xerial:sqlite-jdbc:3.50.3.0'
+
+    // JSON
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
