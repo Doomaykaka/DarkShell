@@ -54,11 +54,11 @@ public class MenuWindow extends JFrame {
         JButton btnExit = new JButton("Exit");
 
         int gap = 15;
-        addButtonWithGap(panel, btnNewGame, gap);
-        addButtonWithGap(panel, btnLoadGame, gap);
-        addButtonWithGap(panel, btnSaveGame, gap);
-        addButtonWithGap(panel, btnSettings, gap);
-        addButtonWithGap(panel, btnExit, gap);
+        SupportFunctions.addButtonWithGap(panel, btnNewGame, gap);
+        SupportFunctions.addButtonWithGap(panel, btnLoadGame, gap);
+        SupportFunctions.addButtonWithGap(panel, btnSaveGame, gap);
+        SupportFunctions.addButtonWithGap(panel, btnSettings, gap);
+        SupportFunctions.addButtonWithGap(panel, btnExit, gap);
 
         controls.add(btnNewGame);
         controls.add(btnLoadGame);
@@ -72,21 +72,21 @@ public class MenuWindow extends JFrame {
     }
 
     private void addButtonsActionListeners(List<JButton> buttons) {
-        // Обработчики событий
         ActionListener listener = e -> {
             String command = e.getActionCommand();
             switch (command) {
                 case "New game":
-                    showMessage("Запуск новой игры...");
+                    SupportFunctions.showMessage("Запуск новой игры...");
                     break;
                 case "Load game":
-                    showMessage("Загрузка сохранённой игры...");
+                    SupportFunctions.showMessage("Загрузка сохранённой игры...");
                     break;
                 case "Save game":
-                    showMessage("Сохранение текущей игры...");
+                    SupportFunctions.showMessage("Сохранение текущей игры...");
                     break;
                 case "Settings":
-                    showMessage("Открытие меню настроек...");
+                    OptionsWindow optionsWindow = new OptionsWindow();
+                    SwingUtilities.invokeLater(() -> optionsWindow.showWindow());
                     break;
                 case "Exit":
                     int confirm = JOptionPane.showConfirmDialog(
@@ -101,17 +101,6 @@ public class MenuWindow extends JFrame {
         for (JButton button : buttons) {
             button.addActionListener(listener);
         }
-    }
-
-    // Вспомогательный метод: добавляет кнопку и вертикальный отступ
-    private static void addButtonWithGap(JPanel panel, JButton button, int gap) {
-        panel.add(button);
-        panel.add(Box.createRigidArea(new Dimension(0, gap)));
-    }
-
-    // Вспомогательный метод: показывает всплывающее сообщение
-    private static void showMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public class ScreensaverWindow {

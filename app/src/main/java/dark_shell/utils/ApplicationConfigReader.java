@@ -22,28 +22,24 @@ public class ApplicationConfigReader {
     private static final String PROPERTY_NAME_USE_DARK = "use-dark";
 
     private static final String CONFIG_FILENAME = "settings.conf";
-    private static final String CONFIG_SEPARATOR = ";";
 
     private static final String CONFIG_PARENT_FOLDER_NAME = "user.dir";
 
-    private static final String SEARCH_EXCEPTION_PREFIX = "No config file: ";
     private static final String PARSE_EXCEPTION_PREFIX = "Param ";
     private static final String PARSE_EXCEPTION_POSTFIX = " not parsed";
-    private static final String WRITE_EXCEPTION_PREFIX = "Param ";
-    private static final String WRITE_EXCEPTION_POSTFIX = " not saved";
 
-    private String dbType;
-    private String dbDriver;
-    private String dbAddress;
-    private String dbPort;
-    private String dbName;
-    private String dbUser;
-    private String dbPassword;
-    private String dbUsingType;
+    private String dbType = "sqlite";
+    private String dbDriver = "org.sqlite.JDBC";
+    private String dbAddress = ". ds.db";
+    private String dbPort = "";
+    private String dbName = "";
+    private String dbUser = "";
+    private String dbPassword = "";
+    private String dbUsingType = "update";
 
-    private Boolean logApp;
-    private Boolean useLAF;
-    private Boolean useDark;
+    private Boolean logApp = false;
+    private Boolean useLAF = true;
+    private Boolean useDark = true;
 
     private Path pathToConfig;
 
@@ -61,7 +57,7 @@ public class ApplicationConfigReader {
         pathToConfig = Path.of(Path.of(pathToFile, filename).toFile().getAbsolutePath());
 
         if (!pathToConfig.toFile().exists()) {
-            throw new FileNotFoundException(SEARCH_EXCEPTION_PREFIX + pathToConfig.toString());
+            saveConfig();
         }
 
         FileInputStream configFileInputStream = new FileInputStream(pathToConfig.toString());
@@ -89,12 +85,8 @@ public class ApplicationConfigReader {
                 .toFile()
                 .getAbsolutePath());
 
-        if (!pathToConfig.toFile().exists()) {
-            throw new FileNotFoundException(SEARCH_EXCEPTION_PREFIX + pathToConfig.toString());
-        }
-
-        if (!this.pathToConfig.toFile().exists()) {
-            throw new FileNotFoundException(Constants.CONFIG_NOT_FOUND_MESSAGE + this.pathToConfig.toString());
+        if (!pathToConfig.toFile().exists() && !pathToConfig.toFile().createNewFile()) {
+            throw new FileNotFoundException(Constants.CONFIG_CANT_BE_CREATED_MESSAGE + this.pathToConfig.toString());
         }
 
         FileOutputStream configFOS = new FileOutputStream(this.pathToConfig.toString());
@@ -127,10 +119,6 @@ public class ApplicationConfigReader {
     }
 
     private void setProperty(Properties prop, String propertyName, String propertyValue) throws IOException {
-        if (prop.getProperty(propertyName) == null) {
-            throw new IOException(WRITE_EXCEPTION_PREFIX + propertyName + WRITE_EXCEPTION_POSTFIX);
-        }
-
         prop.setProperty(propertyName, propertyValue);
     }
 

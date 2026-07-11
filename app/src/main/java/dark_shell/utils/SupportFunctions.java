@@ -228,4 +228,47 @@ public class SupportFunctions {
 
         return new ImageIcon(resourceURL);
     }
+
+    public static JPanel getEntityWindowCheckbox(String label) {
+        JPanel result = null;
+
+        result = new JPanel();
+        BoxLayout layout = new BoxLayout(result, BoxLayout.X_AXIS);
+        result.setLayout(layout);
+
+        JCheckBox input = new JCheckBox();
+
+        result.add(new JLabel(label));
+        result.add(input);
+
+        return result;
+    }
+
+    public static void setEntityWindowCheckboxValue(JPanel panel, boolean value) {
+        int checkboxIndex = 1;
+
+        JCheckBox checkbox = (JCheckBox) panel.getComponent(checkboxIndex);
+        checkbox.getModel().setSelected(value);
+    }
+
+    public static boolean getEntityWindowCheckboxValue(JPanel panel) {
+        int checkboxIndex = 1;
+
+        JCheckBox checkbox = (JCheckBox) panel.getComponent(checkboxIndex);
+        return checkbox.isSelected();
+    }
+
+    public static void addButtonWithGap(JPanel panel, JButton button, int gap) {
+        panel.add(button);
+        panel.add(Box.createRigidArea(new Dimension(gap, gap)));
+    }
+
+    public static void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void addChildPanelWithGap(JPanel panel, JPanel child, int gap) {
+        panel.add(child);
+        panel.add(Box.createRigidArea(new Dimension(gap, gap)));
+    }
 }

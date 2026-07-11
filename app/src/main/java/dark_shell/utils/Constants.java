@@ -7,7 +7,7 @@ public class Constants {
 
     public static final int SECONDS_TO_MILLIS_MULTIPLIER = 1000;
 
-    public static final String CONFIG_NOT_FOUND_MESSAGE = "Config not found. Please create config file with path:";
+    public static final String CONFIG_CANT_BE_CREATED_MESSAGE = "Config cant be created:";
 
     public static final String DEFAULT_TEXT = "";
 }

@@ -18,10 +18,9 @@ public class App {
     private static final long SCREENSAVER_TIME = 5000;
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        Logger.getInstance().info("App started");
-
         ApplicationConfigReader appConfigReader = readConfig();
 
+        Logger.getInstance().info("App started");
         Logger.getInstance().info("Configs loaded");
 
         prepareDatabase(appConfigReader);

@@ -30,6 +30,10 @@ public class Logger {
     }
 
     public synchronized void info(String message) {
+        if (!ApplicationConfigReader.getLastConfig().getLogApp()) {
+            return;
+        }
+
         PrintWriter printWriter = null;
         boolean isNew = false;
 
@@ -68,6 +72,10 @@ public class Logger {
     }
 
     public synchronized void warning(String message) {
+        if (!ApplicationConfigReader.getLastConfig().getLogApp()) {
+            return;
+        }
+
         PrintWriter printWriter = null;
         boolean isNew = false;
 
