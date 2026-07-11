@@ -1,5 +1,6 @@
 dark_shell
 dark_shell.models.cyberpunk
+dark_shell.models.database
 dark_shell.models.fantasy
 dark_shell.models.post_apocalypse
 dark_shell.utils

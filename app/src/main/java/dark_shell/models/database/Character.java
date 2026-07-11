@@ -1,9 +1,8 @@
 package dark_shell.models.database;
 
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.*;
-
 
 @Entity
 @Table(name = "characters")
@@ -18,38 +17,42 @@ public class Character {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "character_gen")
     private Long id;
 
-    @NotNull
-    @Column(nullable = false)
+    @NotNull @Column(nullable = false)
     private String name;
 
     @NotNull @Column(nullable = false)
     private Date creationDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "character", orphanRemoval = true)
-    private List<CyberpunkCharacteristic> cyberpunkCharacteristics = new ArrayList<GenerationScript>();
+    @NotNull @OneToOne
+    private CyberpunkCharacteristic cyberpunkCharacteristics;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
-    private List<Workspace> workspaces = new ArrayList<Workspace>();
+    @NotNull @OneToOne
+    private FantasyCharacteristic fantasyCharacteristics;
 
-    @Transient
-    private static final boolean DEFAULT_USER_DETAILS_VALUE = false;
+    @NotNull @OneToOne
+    private PostApocalypseCharacteristic postApocalypseCharacteristics;
 
-    @Transient
-    private static final String USER_ROLE_NAME = "ROLE_USER";
-
-    @Transient
-    private static final long serialVersionUID = 1L;
+    @NotNull @OneToOne
+    private Statistic statistic;
 
     public Character() {}
 
-    public Character(String login, String password, String gitAccountDataPath) {
+    public Character(
+            String name,
+            Date creationDate,
+            CyberpunkCharacteristic cyberpunkCharacteristics,
+            FantasyCharacteristic fantasyCharacteristics,
+            PostApocalypseCharacteristic postApocalypseCharacteristics,
+            Statistic statistic) {
         final Long DEFAULT_ID = null;
 
         this.id = DEFAULT_ID;
-
-        this.login = login;
-        this.password = password;
-        this.gitAccountDataPath = gitAccountDataPath;
+        this.name = name;
+        this.creationDate = creationDate;
+        this.cyberpunkCharacteristics = cyberpunkCharacteristics;
+        this.fantasyCharacteristics = fantasyCharacteristics;
+        this.postApocalypseCharacteristics = postApocalypseCharacteristics;
+        this.statistic = statistic;
     }
 
     public Long getId() {
@@ -60,117 +63,76 @@ public class Character {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getName() {
+        return name;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public String getGitAccountDataPath() {
-        return gitAccountDataPath;
+    public CyberpunkCharacteristic getCyberpunkCharacteristics() {
+        return cyberpunkCharacteristics;
     }
 
-    public void setGitAccountDataPath(String gitAccountDataPath) {
-        this.gitAccountDataPath = gitAccountDataPath;
+    public void setCyberpunkCharacteristics(CyberpunkCharacteristic cyberpunkCharacteristics) {
+        this.cyberpunkCharacteristics = cyberpunkCharacteristics;
     }
 
-    public List<GenerationScript> getGenerationScripts() {
-        return generationScripts;
+    public FantasyCharacteristic getFantasyCharacteristics() {
+        return fantasyCharacteristics;
     }
 
-    public void setGenerationScripts(List<GenerationScript> generationScripts) {
-        this.generationScripts = generationScripts;
+    public void setFantasyCharacteristics(FantasyCharacteristic fantasyCharacteristics) {
+        this.fantasyCharacteristics = fantasyCharacteristics;
     }
 
-    public List<Workspace> getWorkspaces() {
-        return workspaces;
+    public PostApocalypseCharacteristic getPostApocalypseCharacteristics() {
+        return postApocalypseCharacteristics;
     }
 
-    public void setWorkspaces(List<Workspace> workspaces) {
-        this.workspaces = workspaces;
+    public void setPostApocalypseCharacteristics(PostApocalypseCharacteristic postApocalypseCharacteristics) {
+        this.postApocalypseCharacteristics = postApocalypseCharacteristics;
     }
 
-    @Override
-    @Transient
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority(USER_ROLE_NAME));
+    public Statistic getStatistic() {
+        return statistic;
     }
 
-    @Override
-    @Transient
-    public String getUsername() {
-        return login;
+    public void setStatistic(Statistic statistic) {
+        this.statistic = statistic;
     }
 
     @Override
-    @Transient
-    public boolean isAccountNonExpired() {
-        return DEFAULT_USER_DETAILS_VALUE;
-    }
-
-    @Override
-    @Transient
-    public boolean isAccountNonLocked() {
-        return DEFAULT_USER_DETAILS_VALUE;
-    }
-
-    @Override
-    @Transient
-    public boolean isCredentialsNonExpired() {
-        return DEFAULT_USER_DETAILS_VALUE;
-    }
-
-    @Override
-    @Transient
-    public boolean isEnabled() {
-        return DEFAULT_USER_DETAILS_VALUE;
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Character character = (Character) o;
+        return Objects.equals(id, character.id)
+                && Objects.equals(name, character.name)
+                && Objects.equals(creationDate, character.creationDate)
+                && Objects.equals(cyberpunkCharacteristics, character.cyberpunkCharacteristics)
+                && Objects.equals(fantasyCharacteristics, character.fantasyCharacteristics)
+                && Objects.equals(postApocalypseCharacteristics, character.postApocalypseCharacteristics)
+                && Objects.equals(statistic, character.statistic);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((login == null) ? 0 : login.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((gitAccountDataPath == null) ? 0 : gitAccountDataPath.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        User other = (User) obj;
-        if (id == null) {
-            if (other.id != null) return false;
-        } else if (!id.equals(other.id)) return false;
-        if (login == null) {
-            if (other.login != null) return false;
-        } else if (!login.equals(other.login)) return false;
-        if (password == null) {
-            if (other.password != null) return false;
-        } else if (!password.equals(other.password)) return false;
-        if (gitAccountDataPath == null) {
-            if (other.gitAccountDataPath != null) return false;
-        } else if (!gitAccountDataPath.equals(other.gitAccountDataPath)) return false;
-        if (generationScripts == null) {
-            if (other.generationScripts != null) return false;
-        } else if (!generationScripts.equals(other.generationScripts)) return false;
-        if (workspaces == null) {
-            if (other.workspaces != null) return false;
-        } else if (!workspaces.equals(other.workspaces)) return false;
-        return true;
+        return Objects.hash(
+                id,
+                name,
+                creationDate,
+                cyberpunkCharacteristics,
+                fantasyCharacteristics,
+                postApocalypseCharacteristics,
+                statistic);
     }
 }

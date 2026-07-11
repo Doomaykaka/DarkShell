@@ -1,5 +1,3 @@
 package dark_shell.models.database;
 
-public class PostApocalypseCharacteristic {
-
-}
+public class PostApocalypseCharacteristic {}
