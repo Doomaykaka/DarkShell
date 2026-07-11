@@ -79,10 +79,11 @@ public class MenuWindow extends JFrame {
                     SupportFunctions.showMessage("Запуск новой игры...");
                     break;
                 case "Load game":
-                    SupportFunctions.showMessage("Загрузка сохранённой игры...");
+                    SaveLoadWindow saveLoadWindow = new SaveLoadWindow();
+                    SwingUtilities.invokeLater(() -> saveLoadWindow.showWindow());
                     break;
                 case "Save game":
-                    SupportFunctions.showMessage("Сохранение текущей игры...");
+                    SaveLoadWindow.saveCharacter();
                     break;
                 case "Settings":
                     OptionsWindow optionsWindow = new OptionsWindow();

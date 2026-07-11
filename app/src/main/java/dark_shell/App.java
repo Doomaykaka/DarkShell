@@ -2,7 +2,6 @@ package dark_shell;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import dark_shell.controllers.GameOperationsController;
 import dark_shell.dao.*;
 import dark_shell.gui.MenuWindow;
 import dark_shell.models.database.*;
@@ -36,24 +35,6 @@ public class App {
     }
 
     private static void startUpApplication(String[] args) {
-        // TODO
-
-        CharactersDAO charactersDAO = new CharactersDAO(HibernateConfiguration.getEntityManagerFactory());
-        CyberpunkCharacteristicsDAO cyberpunkCharacteristicsDAO =
-                new CyberpunkCharacteristicsDAO(HibernateConfiguration.getEntityManagerFactory());
-        FantasyCharacteristicsDAO fantasyCharacteristicsDAO =
-                new FantasyCharacteristicsDAO(HibernateConfiguration.getEntityManagerFactory());
-        PostApocalypseCharacteristicsDAO postApocalypseCharacteristicsDAO =
-                new PostApocalypseCharacteristicsDAO(HibernateConfiguration.getEntityManagerFactory());
-        StatisticsDAO statisticsDAO = new StatisticsDAO(HibernateConfiguration.getEntityManagerFactory());
-
-        GameOperationsController gameOperationsController = new GameOperationsController(
-                charactersDAO,
-                cyberpunkCharacteristicsDAO,
-                fantasyCharacteristicsDAO,
-                postApocalypseCharacteristicsDAO,
-                statisticsDAO);
-
         MenuWindow window = new MenuWindow();
         SwingUtilities.invokeLater(() -> window.showScreensaver());
 

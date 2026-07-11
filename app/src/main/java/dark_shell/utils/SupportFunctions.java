@@ -5,6 +5,8 @@ import dark_shell.models.database.FantasyCharacteristic;
 import dark_shell.models.database.PostApocalypseCharacteristic;
 import dark_shell.models.database.Statistic;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 import java.net.URL;
 import java.time.Instant;
@@ -270,5 +272,58 @@ public class SupportFunctions {
     public static void addChildPanelWithGap(JPanel panel, JPanel child, int gap) {
         panel.add(child);
         panel.add(Box.createRigidArea(new Dimension(gap, gap)));
+    }
+
+    public static File chooseFile() {
+        File selectedFile = null;
+
+        JFileChooser fileChooser = new JFileChooser();
+        int state = fileChooser.showOpenDialog(null);
+
+        if (state == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+        }
+
+        return selectedFile;
+    }
+
+    public static File saveFile() {
+        File selectedFile = null;
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.showSaveDialog(null);
+        selectedFile = fileChooser.getSelectedFile();
+
+        return selectedFile;
+    }
+
+    public static MouseListener getOnClickListener(Runnable callback) {
+        return new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                callback.run();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                ;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                ;
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                ;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                ;
+            }
+        };
     }
 }

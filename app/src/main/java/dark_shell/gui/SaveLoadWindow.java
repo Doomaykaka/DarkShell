@@ -1,0 +1,195 @@
+package dark_shell.gui;
+
+import dark_shell.controllers.GameOperationsController;
+import dark_shell.dao.*;
+import dark_shell.models.database.Character;
+import dark_shell.utils.HibernateConfiguration;
+import dark_shell.utils.SupportFunctions;
+import java.awt.*;
+import java.io.File;
+import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+
+public class SaveLoadWindow extends JFrame {
+    private static GameOperationsController gameOperationsController;
+    private final JTable table;
+    private final DefaultTableModel tableModel;
+
+    private static volatile dark_shell.models.database.Character currentCharacter;
+
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 450;
+    private static final String WINDOW_TITLE = "Load game";
+
+    public SaveLoadWindow() {
+        boolean isResizable = false;
+
+        setTitle(WINDOW_TITLE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(WIDTH, HEIGHT);
+        setLocationRelativeTo(null);
+        setResizable(isResizable);
+
+        setLayout(new BorderLayout());
+
+        String[] columnNames = {"Character name", "Load", "Delete"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table = new JTable(tableModel);
+
+        table.setFillsViewportHeight(true);
+        table.setRowHeight(45);
+        table.setAutoCreateRowSorter(true);
+
+        table.getColumnModel().getColumn(1).setCellRenderer(getTableCellRenderer("Load"));
+        table.getColumnModel().getColumn(2).setCellRenderer(getTableCellRenderer("Delete"));
+        table.getSelectionModel().addListSelectionListener(getTableListSelectionListener());
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane, BorderLayout.CENTER);
+
+        JPanel bottomRightPanel = new JPanel();
+        bottomRightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        bottomRightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JButton btnLoadFromFile = new JButton("Load save from file");
+        btnLoadFromFile.addActionListener(e -> loadCharacterFromFile());
+        bottomRightPanel.add(btnLoadFromFile);
+
+        add(bottomRightPanel, BorderLayout.SOUTH);
+
+        initController();
+        loadCharacters();
+    }
+
+    private TableCellRenderer getTableCellRenderer(String text) {
+        return new TableCellRenderer() {
+            private JButton button;
+
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (button == null) {
+                    button = new JButton();
+                    button.setPreferredSize(new Dimension(100, 35));
+                }
+
+                button.setText(text);
+
+                return button;
+            }
+        };
+    }
+
+    private ListSelectionListener getTableListSelectionListener() {
+        return e -> {
+            if (!e.getValueIsAdjusting()) {
+                int viewRow = table.getSelectedRow();
+                if (viewRow < 0) return;
+
+                int viewColumn = table.getSelectedColumn();
+                if (viewColumn < 0) return;
+
+                int modelRow = table.convertRowIndexToModel(viewRow);
+                int modelColumn = table.convertColumnIndexToModel(viewColumn);
+
+                Character character = (Character) tableModel.getValueAt(modelRow, 1);
+
+                if (modelColumn == 1) {
+                    setCurrentCharacter(character);
+
+                    SupportFunctions.showMessage("Character loaded");
+                } else if (modelColumn == 2) {
+                    gameOperationsController.removeCharacter(character.getId());
+                    refreshTable();
+
+                    SupportFunctions.showMessage("Character removed");
+                }
+            }
+        };
+    }
+
+    private void refreshTable() {
+        tableModel.setRowCount(0);
+        loadCharacters();
+    }
+
+    private void initController() {
+        CharactersDAO charactersDAO = new CharactersDAO(HibernateConfiguration.getEntityManagerFactory());
+        CyberpunkCharacteristicsDAO cyberpunkCharacteristicsDAO =
+                new CyberpunkCharacteristicsDAO(HibernateConfiguration.getEntityManagerFactory());
+        FantasyCharacteristicsDAO fantasyCharacteristicsDAO =
+                new FantasyCharacteristicsDAO(HibernateConfiguration.getEntityManagerFactory());
+        PostApocalypseCharacteristicsDAO postApocalypseCharacteristicsDAO =
+                new PostApocalypseCharacteristicsDAO(HibernateConfiguration.getEntityManagerFactory());
+        StatisticsDAO statisticsDAO = new StatisticsDAO(HibernateConfiguration.getEntityManagerFactory());
+
+        gameOperationsController = new GameOperationsController(
+                charactersDAO,
+                cyberpunkCharacteristicsDAO,
+                fantasyCharacteristicsDAO,
+                postApocalypseCharacteristicsDAO,
+                statisticsDAO);
+    }
+
+    private void loadCharacters() {
+        java.util.List<Character> characters = gameOperationsController.getAllCharacters();
+        for (Character slot : characters) {
+            addLoadSlot(slot);
+        }
+    }
+
+    private void addLoadSlot(Character character) {
+        tableModel.addRow(new Object[] {character.getName(), character, character});
+    }
+
+    private void loadCharacterFromFile() {
+        File saveFile = SupportFunctions.chooseFile();
+        if (saveFile == null) return;
+
+        Character loadedCharacter = gameOperationsController.importCharacter(saveFile);
+        if (loadedCharacter != null) {
+            gameOperationsController.saveCharacter(loadedCharacter);
+            refreshTable();
+            SupportFunctions.showMessage("Character imported from file");
+        } else {
+            SupportFunctions.showMessage("Failed to import character");
+        }
+    }
+
+    public void showWindow() {
+        setVisible(true);
+    }
+
+    public static void setCurrentCharacter(dark_shell.models.database.Character character) {
+        currentCharacter = character;
+    }
+
+    public static dark_shell.models.database.Character getCurrentCharacter() {
+        return currentCharacter;
+    }
+
+    public static void saveCharacter() {
+        if (getCurrentCharacter() == null || gameOperationsController == null) {
+            SupportFunctions.showMessage("Load game before save");
+            return;
+        }
+
+        File saveFile = SupportFunctions.saveFile();
+
+        if (saveFile == null) {
+            SupportFunctions.showMessage("Bad save file");
+            return;
+        }
+
+        gameOperationsController.exportCharacter(getCurrentCharacter(), saveFile);
+
+        SupportFunctions.showMessage("Character exported to file");
+    }
+}
