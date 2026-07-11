@@ -3,10 +3,14 @@ package dark_shell.controllers;
 import dark_shell.dao.*;
 import dark_shell.models.database.*;
 import dark_shell.models.database.Character;
+import dark_shell.utils.ApplicationConfigReader;
+import dark_shell.utils.Constants;
 import dark_shell.utils.SupportFunctions;
 import java.io.*;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -302,9 +306,9 @@ public class GameOperationsController {
         try {
             JSONObject characterObj = (JSONObject) parser.parse(characterJSON);
 
-            Long id = (Long) characterObj.get("id");
             String name = (String) characterObj.get("name");
-            Date creationDate = new Date((Long) characterObj.get("creationDate") * 1000);
+            Date creationDate =
+                    new Date((Long) characterObj.get("creationDate") * Constants.SECONDS_TO_MILLIS_MULTIPLIER);
             CyberpunkCharacteristic cyberpunkCharacteristics =
                     cyberpunkCharacteristicFromJSON((JSONObject) characterObj.get("cyberpunkCharacteristics"));
             FantasyCharacteristic fantasyCharacteristics =
@@ -429,7 +433,7 @@ public class GameOperationsController {
     private Statistic statisticFromJSON(JSONObject statisticObj) {
         Statistic statistic = null;
 
-        Date lastPlayDate = new Date((Long) statisticObj.get("lastPlayDate") * 1000);
+        Date lastPlayDate = new Date((Long) statisticObj.get("lastPlayDate") * Constants.SECONDS_TO_MILLIS_MULTIPLIER);
         Long daysInGame = (Long) statisticObj.get("daysInGame");
         Long eventsConducted = (Long) statisticObj.get("eventsConducted");
         Long numberOfSuccessfulEvents = (Long) statisticObj.get("numberOfSuccessfulEvents");
@@ -440,5 +444,53 @@ public class GameOperationsController {
                 lastPlayDate, daysInGame, eventsConducted, numberOfSuccessfulEvents, maxLevel, maxExperience);
 
         return statistic;
+    }
+
+    private void setupGame(Map<String, Boolean> newGameSettings) {
+        Map<String, Boolean> oldGameSettings = loadGameSettings();
+
+        int equalsOptionsCount = 0;
+
+        for (String setttingName : newGameSettings.keySet()) {
+            Boolean oldValue = oldGameSettings.get(setttingName);
+            Boolean newValue = newGameSettings.get(setttingName);
+
+            if (oldGameSettings.containsKey(setttingName) && oldValue.equals(newValue)) {
+                equalsOptionsCount++;
+            }
+        }
+
+        if (equalsOptionsCount == oldGameSettings.keySet().size()) {
+            return;
+        }
+
+        for (Map.Entry<String, Boolean> settting : newGameSettings.entrySet()) {
+            if (settting.getKey().equals("log-app")) {
+                Boolean newValue = settting.getValue();
+                ApplicationConfigReader.getLastConfig().setLogApp(newValue);
+            } else if (settting.getKey().equals("use-laf")) {
+                Boolean newValue = settting.getValue();
+                ApplicationConfigReader.getLastConfig().setUseLAF(newValue);
+            } else if (settting.getKey().equals("use-dark")) {
+                Boolean newValue = settting.getValue();
+                ApplicationConfigReader.getLastConfig().setUseDark(newValue);
+            }
+        }
+
+        try {
+            ApplicationConfigReader.getLastConfig().saveConfig();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Map<String, Boolean> loadGameSettings() {
+        Map<String, Boolean> gameSettings = new HashMap<>();
+
+        gameSettings.put("log-app", ApplicationConfigReader.getLastConfig().getLogApp());
+        gameSettings.put("use-laf", ApplicationConfigReader.getLastConfig().getUseLAF());
+        gameSettings.put("use-dark", ApplicationConfigReader.getLastConfig().getUseDark());
+
+        return gameSettings;
     }
 }

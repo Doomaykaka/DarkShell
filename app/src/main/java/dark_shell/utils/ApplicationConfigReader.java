@@ -2,6 +2,7 @@ package dark_shell.utils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Properties;
@@ -16,6 +17,10 @@ public class ApplicationConfigReader {
     private static final String PROPERTY_NAME_DB_PASS = "db-password";
     private static final String PROPERTY_NAME_DB_USING_TYPE = "db-using-type";
 
+    private static final String PROPERTY_NAME_LOG_APP = "log-app";
+    private static final String PROPERTY_NAME_USE_LAF = "use-laf";
+    private static final String PROPERTY_NAME_USE_DARK = "use-dark";
+
     private static final String CONFIG_FILENAME = "settings.conf";
     private static final String CONFIG_SEPARATOR = ";";
 
@@ -24,6 +29,8 @@ public class ApplicationConfigReader {
     private static final String SEARCH_EXCEPTION_PREFIX = "No config file: ";
     private static final String PARSE_EXCEPTION_PREFIX = "Param ";
     private static final String PARSE_EXCEPTION_POSTFIX = " not parsed";
+    private static final String WRITE_EXCEPTION_PREFIX = "Param ";
+    private static final String WRITE_EXCEPTION_POSTFIX = " not saved";
 
     private String dbType;
     private String dbDriver;
@@ -33,6 +40,10 @@ public class ApplicationConfigReader {
     private String dbUser;
     private String dbPassword;
     private String dbUsingType;
+
+    private Boolean logApp;
+    private Boolean useLAF;
+    private Boolean useDark;
 
     private Path pathToConfig;
 
@@ -66,7 +77,45 @@ public class ApplicationConfigReader {
         dbPassword = getProperty(prop, PROPERTY_NAME_DB_PASS);
         dbUsingType = getProperty(prop, PROPERTY_NAME_DB_USING_TYPE);
 
+        logApp = Boolean.parseBoolean(getProperty(prop, PROPERTY_NAME_LOG_APP));
+        useLAF = Boolean.parseBoolean(getProperty(prop, PROPERTY_NAME_USE_LAF));
+        useDark = Boolean.parseBoolean(getProperty(prop, PROPERTY_NAME_USE_DARK));
+
         lastConfig = this;
+    }
+
+    public void saveConfig() throws IOException {
+        pathToConfig = Path.of(Path.of(System.getProperty(CONFIG_PARENT_FOLDER_NAME), CONFIG_FILENAME)
+                .toFile()
+                .getAbsolutePath());
+
+        if (!pathToConfig.toFile().exists()) {
+            throw new FileNotFoundException(SEARCH_EXCEPTION_PREFIX + pathToConfig.toString());
+        }
+
+        if (!this.pathToConfig.toFile().exists()) {
+            throw new FileNotFoundException(Constants.CONFIG_NOT_FOUND_MESSAGE + this.pathToConfig.toString());
+        }
+
+        FileOutputStream configFOS = new FileOutputStream(this.pathToConfig.toString());
+        Properties properties = new Properties();
+
+        setProperty(properties, PROPERTY_NAME_DB_TYPE, dbType);
+        setProperty(properties, PROPERTY_NAME_DB_DRIVER, dbDriver);
+        setProperty(properties, PROPERTY_NAME_DB_ADDRESS, dbAddress);
+        setProperty(properties, PROPERTY_NAME_DB_PORT, dbPort);
+        setProperty(properties, PROPERTY_NAME_DB_NAME, dbName);
+        setProperty(properties, PROPERTY_NAME_DB_USER, dbUser);
+        setProperty(properties, PROPERTY_NAME_DB_PASS, dbPassword);
+        setProperty(properties, PROPERTY_NAME_DB_USING_TYPE, dbUsingType);
+
+        setProperty(properties, PROPERTY_NAME_LOG_APP, logApp.toString());
+        setProperty(properties, PROPERTY_NAME_USE_LAF, useLAF.toString());
+        setProperty(properties, PROPERTY_NAME_USE_DARK, useDark.toString());
+
+        properties.store(configFOS, Constants.DEFAULT_TEXT);
+        configFOS.flush();
+        configFOS.close();
     }
 
     private String getProperty(Properties prop, String propertyName) throws IOException {
@@ -75,6 +124,14 @@ public class ApplicationConfigReader {
         }
 
         return prop.getProperty(propertyName);
+    }
+
+    private void setProperty(Properties prop, String propertyName, String propertyValue) throws IOException {
+        if (prop.getProperty(propertyName) == null) {
+            throw new IOException(WRITE_EXCEPTION_PREFIX + propertyName + WRITE_EXCEPTION_POSTFIX);
+        }
+
+        prop.setProperty(propertyName, propertyValue);
     }
 
     public String getDbType() {
@@ -107,6 +164,30 @@ public class ApplicationConfigReader {
 
     public String getDbUsingType() {
         return dbUsingType;
+    }
+
+    public Boolean getLogApp() {
+        return logApp;
+    }
+
+    public Boolean getUseLAF() {
+        return useLAF;
+    }
+
+    public Boolean getUseDark() {
+        return useDark;
+    }
+
+    public void setLogApp(Boolean logApp) {
+        this.logApp = logApp;
+    }
+
+    public void setUseLAF(Boolean useLAF) {
+        this.useLAF = useLAF;
+    }
+
+    public void setUseDark(Boolean useDark) {
+        this.useDark = useDark;
     }
 
     public static ApplicationConfigReader getLastConfig() {
