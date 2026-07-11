@@ -117,22 +117,11 @@ public class Character {
         Character character = (Character) o;
         return Objects.equals(id, character.id)
                 && Objects.equals(name, character.name)
-                && Objects.equals(creationDate, character.creationDate)
-                && Objects.equals(cyberpunkCharacteristics, character.cyberpunkCharacteristics)
-                && Objects.equals(fantasyCharacteristics, character.fantasyCharacteristics)
-                && Objects.equals(postApocalypseCharacteristics, character.postApocalypseCharacteristics)
-                && Objects.equals(statistic, character.statistic);
+                && Objects.equals(creationDate, character.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                id,
-                name,
-                creationDate,
-                cyberpunkCharacteristics,
-                fantasyCharacteristics,
-                postApocalypseCharacteristics,
-                statistic);
+        return Objects.hash(id, name, creationDate);
     }
 }

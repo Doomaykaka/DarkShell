@@ -48,7 +48,6 @@ public class Statistic {
         final Long DEFAULT_ID = null;
 
         this.id = DEFAULT_ID;
-
         this.lastPlayDate = lastPlayDate;
         this.daysInGame = daysInGame;
         this.eventsConducted = eventsConducted;
