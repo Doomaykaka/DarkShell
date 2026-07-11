@@ -461,6 +461,230 @@ loadScripts(document, 'script');</script>
 <h2 title="dark_shell.utils.*">dark_shell.utils.*</h2>
 <ul class="block-list">
 <li>
+<div class="caption"><span>dark_shell.utils.<a href="dark_shell/utils/ApplicationConfigReader.html" title="class in dark_shell.utils">ApplicationConfigReader</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.ApplicationConfigReader.CONFIG_FILENAME">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#CONFIG_FILENAME">CONFIG_FILENAME</a></code></div>
+<div class="col-last even-row-color"><code>"settings.conf"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.ApplicationConfigReader.CONFIG_PARENT_FOLDER_NAME">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#CONFIG_PARENT_FOLDER_NAME">CONFIG_PARENT_FOLDER_NAME</a></code></div>
+<div class="col-last odd-row-color"><code>"user.dir"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.ApplicationConfigReader.CONFIG_SEPARATOR">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#CONFIG_SEPARATOR">CONFIG_SEPARATOR</a></code></div>
+<div class="col-last even-row-color"><code>";"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PARSE_EXCEPTION_POSTFIX">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PARSE_EXCEPTION_POSTFIX">PARSE_EXCEPTION_POSTFIX</a></code></div>
+<div class="col-last odd-row-color"><code>" not parsed"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PARSE_EXCEPTION_PREFIX">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PARSE_EXCEPTION_PREFIX">PARSE_EXCEPTION_PREFIX</a></code></div>
+<div class="col-last even-row-color"><code>"Param "</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PROPERTY_NAME_DB_ADDRESS">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PROPERTY_NAME_DB_ADDRESS">PROPERTY_NAME_DB_ADDRESS</a></code></div>
+<div class="col-last odd-row-color"><code>"db-address"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PROPERTY_NAME_DB_DRIVER">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PROPERTY_NAME_DB_DRIVER">PROPERTY_NAME_DB_DRIVER</a></code></div>
+<div class="col-last even-row-color"><code>"db-driver"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PROPERTY_NAME_DB_NAME">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PROPERTY_NAME_DB_NAME">PROPERTY_NAME_DB_NAME</a></code></div>
+<div class="col-last odd-row-color"><code>"db-name"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PROPERTY_NAME_DB_PASS">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PROPERTY_NAME_DB_PASS">PROPERTY_NAME_DB_PASS</a></code></div>
+<div class="col-last even-row-color"><code>"db-password"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PROPERTY_NAME_DB_PORT">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PROPERTY_NAME_DB_PORT">PROPERTY_NAME_DB_PORT</a></code></div>
+<div class="col-last odd-row-color"><code>"db-port"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PROPERTY_NAME_DB_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PROPERTY_NAME_DB_TYPE">PROPERTY_NAME_DB_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"db-type"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PROPERTY_NAME_DB_USER">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PROPERTY_NAME_DB_USER">PROPERTY_NAME_DB_USER</a></code></div>
+<div class="col-last odd-row-color"><code>"db-user"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.ApplicationConfigReader.PROPERTY_NAME_DB_USING_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#PROPERTY_NAME_DB_USING_TYPE">PROPERTY_NAME_DB_USING_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"db-using-type"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.ApplicationConfigReader.SEARCH_EXCEPTION_PREFIX">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/ApplicationConfigReader.html#SEARCH_EXCEPTION_PREFIX">SEARCH_EXCEPTION_PREFIX</a></code></div>
+<div class="col-last odd-row-color"><code>"No config file: "</code></div>
+</div>
+</li>
+<li>
+<div class="caption"><span>dark_shell.utils.<a href="dark_shell/utils/Constants.html" title="class in dark_shell.utils">Constants</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.Constants.APP_NAME">public&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/Constants.html#APP_NAME">APP_NAME</a></code></div>
+<div class="col-last even-row-color"><code>"DarkShell"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.Constants.APP_TEST_MAIN_METHOD_NAME">public&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/Constants.html#APP_TEST_MAIN_METHOD_NAME">APP_TEST_MAIN_METHOD_NAME</a></code></div>
+<div class="col-last odd-row-color"><code>"main"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.Constants.APP_TEST_MESSAGE">public&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/Constants.html#APP_TEST_MESSAGE">APP_TEST_MESSAGE</a></code></div>
+<div class="col-last even-row-color"><code>"app should have a main"</code></div>
+</div>
+</li>
+<li>
+<div class="caption"><span>dark_shell.utils.<a href="dark_shell/utils/CustomSQLiteDialect.html" title="class in dark_shell.utils">CustomSQLiteDialect</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.EMPTY">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#EMPTY">EMPTY</a></code></div>
+<div class="col-last even-row-color"><code>""</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_ADD_COLUMN_STRING">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_ADD_COLUMN_STRING">SQLITE_ADD_COLUMN_STRING</a></code></div>
+<div class="col-last odd-row-color"><code>"add column"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_BIGINT_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_BIGINT_TYPE">SQLITE_BIGINT_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"bigint"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_BINARY_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_BINARY_TYPE">SQLITE_BINARY_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"blob"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_BIT_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_BIT_TYPE">SQLITE_BIT_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"integer"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_BLOB_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_BLOB_TYPE">SQLITE_BLOB_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"blob"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_BOOLEAN_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_BOOLEAN_TYPE">SQLITE_BOOLEAN_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"integer"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_CHAR_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_CHAR_TYPE">SQLITE_CHAR_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"char"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_CLOB_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_CLOB_TYPE">SQLITE_CLOB_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"clob"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_CONCAT_FUNC">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_CONCAT_FUNC">SQLITE_CONCAT_FUNC</a></code></div>
+<div class="col-last odd-row-color"><code>"concat"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_CONCAT_FUNC_BEGIN">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_CONCAT_FUNC_BEGIN">SQLITE_CONCAT_FUNC_BEGIN</a></code></div>
+<div class="col-last even-row-color"><code>""</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_CONCAT_FUNC_END">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_CONCAT_FUNC_END">SQLITE_CONCAT_FUNC_END</a></code></div>
+<div class="col-last odd-row-color"><code>""</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_CONCAT_FUNC_SEPARATOR">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_CONCAT_FUNC_SEPARATOR">SQLITE_CONCAT_FUNC_SEPARATOR</a></code></div>
+<div class="col-last even-row-color"><code>"||"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_CREATE_TEMPORARY_TABLE_STRING">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_CREATE_TEMPORARY_TABLE_STRING">SQLITE_CREATE_TEMPORARY_TABLE_STRING</a></code></div>
+<div class="col-last odd-row-color"><code>"create temporary table if not exists"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_CURRENT_TIMESTAMP_STRING">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_CURRENT_TIMESTAMP_STRING">SQLITE_CURRENT_TIMESTAMP_STRING</a></code></div>
+<div class="col-last even-row-color"><code>"select current_timestamp"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_DATE_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_DATE_TYPE">SQLITE_DATE_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"date"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_DECIMAL_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_DECIMAL_TYPE">SQLITE_DECIMAL_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"decimal"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_DOUBLE_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_DOUBLE_TYPE">SQLITE_DOUBLE_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"double"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_FLOAT_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_FLOAT_TYPE">SQLITE_FLOAT_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"float"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_IDENTITY_SELECT_STRING">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_IDENTITY_SELECT_STRING">SQLITE_IDENTITY_SELECT_STRING</a></code></div>
+<div class="col-last odd-row-color"><code>"select last_insert_rowid()"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_INTEGER_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_INTEGER_TYPE">SQLITE_INTEGER_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"integer"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_LIMIT_EXPRESSION_FIRST">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_LIMIT_EXPRESSION_FIRST">SQLITE_LIMIT_EXPRESSION_FIRST</a></code></div>
+<div class="col-last odd-row-color"><code>" limit ? offset ?"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_LIMIT_EXPRESSION_SECOND">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_LIMIT_EXPRESSION_SECOND">SQLITE_LIMIT_EXPRESSION_SECOND</a></code></div>
+<div class="col-last even-row-color"><code>" limit ?"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_LONGVARBINARY_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_LONGVARBINARY_TYPE">SQLITE_LONGVARBINARY_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"blob"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_LONGVARCHAR_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_LONGVARCHAR_TYPE">SQLITE_LONGVARCHAR_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"longvarchar"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_MOD_FUNC">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_MOD_FUNC">SQLITE_MOD_FUNC</a></code></div>
+<div class="col-last odd-row-color"><code>"mod"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_MOD_FUNC_TEMPLATE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_MOD_FUNC_TEMPLATE">SQLITE_MOD_FUNC_TEMPLATE</a></code></div>
+<div class="col-last even-row-color"><code>"?1 % ?2"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_NUMERIC_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_NUMERIC_TYPE">SQLITE_NUMERIC_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"numeric"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_REAL_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_REAL_TYPE">SQLITE_REAL_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"real"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_SMALLINT_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_SMALLINT_TYPE">SQLITE_SMALLINT_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"smallint"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_SUBSTR_FUNC">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_SUBSTR_FUNC">SQLITE_SUBSTR_FUNC</a></code></div>
+<div class="col-last even-row-color"><code>"substr"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_SUBSTRING_FUNC">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_SUBSTRING_FUNC">SQLITE_SUBSTRING_FUNC</a></code></div>
+<div class="col-last odd-row-color"><code>"substring"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_TIME_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_TIME_TYPE">SQLITE_TIME_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"time"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_TIMESTAMP_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_TIMESTAMP_TYPE">SQLITE_TIMESTAMP_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"timestamp"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_TINYINT_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_TINYINT_TYPE">SQLITE_TINYINT_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"tinyint"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_VARBINARY_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_VARBINARY_TYPE">SQLITE_VARBINARY_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"blob"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.CustomSQLiteDialect.SQLITE_VARCHAR_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/CustomSQLiteDialect.html#SQLITE_VARCHAR_TYPE">SQLITE_VARCHAR_TYPE</a></code></div>
+<div class="col-last even-row-color"><code>"varchar"</code></div>
+</div>
+</li>
+<li>
+<div class="caption"><span>dark_shell.utils.<a href="dark_shell/utils/HibernateConfiguration.html" title="class in dark_shell.utils">HibernateConfiguration</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Constant Field</div>
+<div class="table-header col-last">Value</div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.HibernateConfiguration.DB_URL_ADDRESS_SEPARATOR">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#DB_URL_ADDRESS_SEPARATOR">DB_URL_ADDRESS_SEPARATOR</a></code></div>
+<div class="col-last even-row-color"><code>"://"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.HibernateConfiguration.DB_URL_PREFIX">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#DB_URL_PREFIX">DB_URL_PREFIX</a></code></div>
+<div class="col-last odd-row-color"><code>"jdbc:"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.HibernateConfiguration.DEFAULT_DB_PARENT_FOLDER_NAME">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#DEFAULT_DB_PARENT_FOLDER_NAME">DEFAULT_DB_PARENT_FOLDER_NAME</a></code></div>
+<div class="col-last even-row-color"><code>"user.dir"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.HibernateConfiguration.DIALECT_NAME">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#DIALECT_NAME">DIALECT_NAME</a></code></div>
+<div class="col-last odd-row-color"><code>"nail.gun.configurations.SQLiteDialect"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.HibernateConfiguration.DOT">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#DOT">DOT</a></code></div>
+<div class="col-last even-row-color"><code>"."</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.HibernateConfiguration.EMPTY">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#EMPTY">EMPTY</a></code></div>
+<div class="col-last odd-row-color"><code>""</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.HibernateConfiguration.PERSISTENCE_PROVIDER_NAME">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#PERSISTENCE_PROVIDER_NAME">PERSISTENCE_PROVIDER_NAME</a></code></div>
+<div class="col-last even-row-color"><code>"org.hibernate.jpa.HibernatePersistenceProvider"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.HibernateConfiguration.PERSISTENCE_UNIT_NAME">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#PERSISTENCE_UNIT_NAME">PERSISTENCE_UNIT_NAME</a></code></div>
+<div class="col-last odd-row-color"><code>"NailGun"</code></div>
+<div class="col-first even-row-color"><code id="dark_shell.utils.HibernateConfiguration.SLASH">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#SLASH">SLASH</a></code></div>
+<div class="col-last even-row-color"><code>"/"</code></div>
+<div class="col-first odd-row-color"><code id="dark_shell.utils.HibernateConfiguration.SQLITE_DB_TYPE">private&nbsp;static&nbsp;final&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="dark_shell/utils/HibernateConfiguration.html#SQLITE_DB_TYPE">SQLITE_DB_TYPE</a></code></div>
+<div class="col-last odd-row-color"><code>"sqlite"</code></div>
+</div>
+</li>
+<li>
 <div class="caption"><span>dark_shell.utils.<a href="dark_shell/utils/Logger.html" title="class in dark_shell.utils">Logger</a></span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>

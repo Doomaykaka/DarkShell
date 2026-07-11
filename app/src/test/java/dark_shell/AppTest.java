@@ -2,6 +2,7 @@ package dark_shell;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import dark_shell.utils.Constants;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,6 @@ class AppTest {
         Method[] methods = classUnderTest.getClass().getMethods();
         List<String> methodsNames =
                 Arrays.stream(methods).map(method -> method.getName()).toList();
-        assertTrue(methodsNames.contains("main"), "app should have a main");
+        assertTrue(methodsNames.contains(Constants.APP_TEST_MAIN_METHOD_NAME), Constants.APP_TEST_MESSAGE);
     }
 }
