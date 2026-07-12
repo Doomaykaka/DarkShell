@@ -50,6 +50,14 @@ public class GameOperationsController {
         this.charactersDAO.create(character);
     }
 
+    public void updateCharacter(Character character) {
+        this.cyberpunkCharacteristicsDAO.update(character.getCyberpunkCharacteristics());
+        this.fantasyCharacteristicsDAO.update(character.getFantasyCharacteristics());
+        this.postApocalypseCharacteristicsDAO.update(character.getPostApocalypseCharacteristics());
+        this.statisticsDAO.update(character.getStatistic());
+        this.charactersDAO.update(character);
+    }
+
     public Character createNewCharacter(String name) {
         Character newCharacter = SupportFunctions.createEmptyCharacter(name);
 

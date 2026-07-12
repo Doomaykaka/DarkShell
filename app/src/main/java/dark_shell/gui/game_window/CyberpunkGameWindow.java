@@ -10,8 +10,10 @@ import dark_shell.utils.HibernateConfiguration;
 import dark_shell.utils.Logger;
 import dark_shell.utils.SupportFunctions;
 import java.awt.*;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.*;
 
 public class CyberpunkGameWindow extends JFrame {
@@ -45,6 +47,7 @@ public class CyberpunkGameWindow extends JFrame {
     private Location gameLocation;
     private long gameLocationSecuritySystemLevel;
     private Enemy gameEnemy;
+    private Reward reward;
     private Boolean heroHaveInitiative;
     private HackReward hackReward;
     private long hackComplexity = -1;
@@ -312,7 +315,7 @@ public class CyberpunkGameWindow extends JFrame {
             fightStep();
         }
 
-        if (gameEnemy != null && gameEnemy.isDead() || hackReward != null) {
+        if (gameEnemy != null && gameEnemy.isDead() || hackReward != null || gameHero.isDead()) {
             saveHero();
         }
     }
@@ -362,7 +365,7 @@ public class CyberpunkGameWindow extends JFrame {
 
             SupportFunctions.showMessage("Hack steps completed: " + successfulHacks);
 
-            if (successfulHacks == hackComplexity) {
+            if (successfulHacks >= hackComplexity) {
                 hackReward = cyberpunkController.finalizeHackGame(gameHero, gameLocation);
 
                 if (hackReward == null) {
@@ -400,7 +403,7 @@ public class CyberpunkGameWindow extends JFrame {
             updateEnemyStats(gameEnemy);
             updateHeroStats(gameHero);
 
-            Reward reward = cyberpunkController.finalizeGame(gameHero, gameLocation);
+            reward = cyberpunkController.finalizeGame(gameHero, gameLocation);
 
             if (reward == null) {
                 SupportFunctions.showMessage("Hero dead");
@@ -455,8 +458,91 @@ public class CyberpunkGameWindow extends JFrame {
     }
 
     private void saveHero() {
-        // TODO
+        if (hackReward != null) {
+            giveHackReward();
+        }
 
-        // character.getCyberpunkCharacteristics().setLevel();
+        if (reward != null) {
+            giveReward();
+        }
+
+        long experienceToNextLevel = gameHero.getExperienceToNextLevel();
+        long currentLevel = gameHero.getLevel();
+        long levelUpCount = 0;
+
+        while (gameHero.getExperience() > experienceToNextLevel) {
+            levelUpCount++;
+            experienceToNextLevel = gameHero.calculateExperienceToNextLevel(currentLevel + 1);
+            currentLevel++;
+        }
+
+        java.util.List<Long> additionalSkillpoints = java.util.List.of(0L, 0L, 0L, 0L);
+
+        if (levelUpCount > 0) {
+            long skillPointsCount = levelUpCount * 2;
+
+            additionalSkillpoints = chooseSkillpoints(skillPointsCount);
+        }
+
+        character.getCyberpunkCharacteristics().setLevel(currentLevel);
+        character.getCyberpunkCharacteristics().setCurrentHP(gameHero.getCurrentHP());
+        character.getCyberpunkCharacteristics().setMaxHP(gameHero.getMaxHP());
+        character
+                .getCyberpunkCharacteristics()
+                .setInfiltration(gameHero.getInfiltration() + additionalSkillpoints.get(0));
+        character.getCyberpunkCharacteristics().setTechnic(gameHero.getTechnic() + additionalSkillpoints.get(1));
+        character.getCyberpunkCharacteristics().setCool(gameHero.getCool() + additionalSkillpoints.get(2));
+        character.getCyberpunkCharacteristics().setReputation(gameHero.getReputation() + additionalSkillpoints.get(3));
+        character.getCyberpunkCharacteristics().setNoise(gameHero.getNoise());
+        character.getCyberpunkCharacteristics().setYen(gameHero.getYen());
+        character.getCyberpunkCharacteristics().setExperience(gameHero.getExperience());
+        character.getCyberpunkCharacteristics().setExperienceToNextLevel(experienceToNextLevel);
+
+        gameOperationsController.updateCharacter(character);
+    }
+
+    private void giveHackReward() {
+        hackReward.giveReward();
+    }
+
+    private void giveReward() {
+        reward.giveReward();
+    }
+
+    private java.util.List<Long> chooseSkillpoints(long skillPointsCount) {
+        Long infiltration = 0L;
+        Long technic = 0L;
+        Long cool = 0L;
+        Long reputation = 0L;
+
+        Object[] options = {"Infiltration", "Technic", "Cool", "Reputation"};
+
+        AtomicInteger choice = new AtomicInteger();
+
+        for (int i = 0; i < skillPointsCount; i++) {
+            SwingUtilities.invokeLater(() -> {
+                choice.set(JOptionPane.showOptionDialog(
+                        null,
+                        "Select skillpoints",
+                        "Skillpoints selection",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]));
+            });
+
+            if (choice.get() == 0) {
+                infiltration++;
+            } else if (choice.get() == 1) {
+                technic++;
+            } else if (choice.get() == 2) {
+                cool++;
+            } else if (choice.get() == 3) {
+                reputation++;
+            }
+        }
+
+        return List.of(infiltration, technic, cool, reputation);
     }
 }

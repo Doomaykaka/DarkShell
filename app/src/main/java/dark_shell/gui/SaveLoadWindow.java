@@ -111,13 +111,34 @@ public class SaveLoadWindow extends JFrame {
 
                     this.dispose();
                 } else if (modelColumn == 2) {
-                    gameOperationsController.removeCharacter(character.getId());
-                    refreshTable();
-
-                    SupportFunctions.showMessage("Character removed");
+                    removeCharacter(character);
                 }
             }
         };
+    }
+
+    private void removeCharacter(Character character) {
+        Object[] options = {"Remove", "Cancel"};
+
+        SwingUtilities.invokeLater(() -> {
+            long answer = JOptionPane.showOptionDialog(
+                    null,
+                    "Remove character?",
+                    "Character remove",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+
+            if (answer == 0) {
+                gameOperationsController.removeCharacter(character.getId());
+
+                SupportFunctions.showMessage("Character removed");
+            }
+
+            refreshTable();
+        });
     }
 
     private void refreshTable() {
