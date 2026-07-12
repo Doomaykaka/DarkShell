@@ -520,17 +520,15 @@ public class CyberpunkGameWindow extends JFrame {
         AtomicInteger choice = new AtomicInteger();
 
         for (int i = 0; i < skillPointsCount; i++) {
-            SwingUtilities.invokeLater(() -> {
-                choice.set(JOptionPane.showOptionDialog(
-                        null,
-                        "Select skillpoints",
-                        "Skillpoints selection",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[0]));
-            });
+            choice.set(JOptionPane.showOptionDialog(
+                    null,
+                    "Select skillpoints",
+                    "Skillpoints selection",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]));
 
             if (choice.get() == 0) {
                 infiltration++;
