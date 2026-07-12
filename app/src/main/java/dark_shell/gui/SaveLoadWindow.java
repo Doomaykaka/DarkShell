@@ -2,6 +2,7 @@ package dark_shell.gui;
 
 import dark_shell.controllers.GameOperationsController;
 import dark_shell.dao.*;
+import dark_shell.gui.game_window.AdditionalGameWindows;
 import dark_shell.models.database.Character;
 import dark_shell.utils.HibernateConfiguration;
 import dark_shell.utils.SupportFunctions;
@@ -105,6 +106,10 @@ public class SaveLoadWindow extends JFrame {
                     setCurrentCharacter(character);
 
                     SupportFunctions.showMessage("Character loaded");
+
+                    AdditionalGameWindows.selectGameSetting(character);
+
+                    this.dispose();
                 } else if (modelColumn == 2) {
                     gameOperationsController.removeCharacter(character.getId());
                     refreshTable();

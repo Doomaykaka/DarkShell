@@ -1,5 +1,6 @@
 package dark_shell.gui;
 
+import dark_shell.gui.game_window.AdditionalGameWindows;
 import dark_shell.utils.Logger;
 import dark_shell.utils.SupportFunctions;
 import java.awt.*;
@@ -76,7 +77,7 @@ public class MenuWindow extends JFrame {
             String command = e.getActionCommand();
             switch (command) {
                 case "New game":
-                    SupportFunctions.showMessage("Запуск новой игры...");
+                    AdditionalGameWindows.startNewGame();
                     break;
                 case "Load game":
                     SaveLoadWindow saveLoadWindow = new SaveLoadWindow();

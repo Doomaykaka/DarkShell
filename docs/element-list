@@ -3,6 +3,7 @@ dark_shell.controllers
 dark_shell.dao
 dark_shell.dao.utils
 dark_shell.gui
+dark_shell.gui.game_window
 dark_shell.models.cyberpunk
 dark_shell.models.database
 dark_shell.models.fantasy

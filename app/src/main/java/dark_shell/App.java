@@ -16,7 +16,7 @@ import javax.swing.*;
 public class App {
     private static final long SCREENSAVER_TIME = 5000;
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws IOException {
         ApplicationConfigReader appConfigReader = readConfig();
 
         Logger.getInstance().info("App started");
