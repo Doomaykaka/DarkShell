@@ -17,6 +17,7 @@ public class UsersHackStep {
 
     private final int HACK_STEP_ALARM_EDGE = 0;
     private final int HACK_STEP_ALARM_NOISE_ADDITIONAL = 3;
+    private final int HACK_STEP_TECHNIC_DIVIDER = 2;
 
     public UsersHackStep(Location location, Hero hero, long hackComplexity) {
         this.location = location;
@@ -30,7 +31,9 @@ public class UsersHackStep {
         this.currentHackStep = ++currentHackStep;
 
         this.hackStepBuff = SupportFunctions.randomAtOneToTwenty();
-        this.alarmChance = this.hackStepBuff + this.hero.getTechnic() - this.location.calculateSecuritySystemLevel();
+        long securitySystemLevel = this.location.calculateSecuritySystemLevel();
+        long heroTechnic = this.hero.getTechnic();
+        this.alarmChance = this.hackStepBuff + heroTechnic / HACK_STEP_TECHNIC_DIVIDER - securitySystemLevel;
         this.haveAlarm = this.alarmChance <= HACK_STEP_ALARM_EDGE;
 
         success = !this.haveAlarm;
@@ -58,12 +61,15 @@ public class UsersHackStep {
             usersHackStepRepresentation.append("Этап взлома (" + this.currentHackStep
                     + "/"
                     + this.hackComplexity
-                    + "): rand(1 - 20) + Уровень навыка техники (TECH) - Уровень системы безопасности в локации (SL) > "
+                    + "): rand(1 - 20) + Уровень навыка техники (TECH) / " + HACK_STEP_TECHNIC_DIVIDER
+                    + " - Уровень системы безопасности в локации (SL) > "
                     + HACK_STEP_ALARM_EDGE
                     + " = "
                     + this.hackStepBuff
                     + " + "
                     + this.hero.getTechnic()
+                    + " / "
+                    + HACK_STEP_TECHNIC_DIVIDER
                     + " - "
                     + this.location.calculateSecuritySystemLevel()
                     + " = "

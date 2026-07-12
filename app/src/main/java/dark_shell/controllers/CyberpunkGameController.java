@@ -76,37 +76,6 @@ public class CyberpunkGameController {
         return heroHaveCombatInitiative;
     }
 
-    //    public void fight(
-    //            Hero hero,
-    //            Location location,
-    //            Enemy enemy,
-    //            boolean heroHaveInitiative
-    //    ) {
-    //        boolean heroPanicChecked = NO_PANIC;
-    //
-    //        if (heroHaveInitiative) {
-    //            while (!hero.isDead() && !enemy.isDead()) {
-    //                if (!heroPanicChecked && hero.inPanic()) {
-    //                    heroPanicChecked = HAVE_PANIC;
-    //                    makeMoveHeroFirst(hero, enemy, heroPanicChecked);
-    //                } else {
-    //                    makeMoveHeroFirst(hero, enemy, NO_PANIC);
-    //                }
-    //            }
-    //        } else {
-    //            while (!hero.isDead() && !enemy.isDead()) {
-    //                if (!heroPanicChecked && hero.inPanic()) {
-    //                    heroPanicChecked = HAVE_PANIC;
-    //                    makeMoveEnemyFirst(hero, enemy, heroPanicChecked);
-    //                } else {
-    //                    makeMoveEnemyFirst(hero, enemy, NO_PANIC);
-    //                }
-    //            }
-    //        }
-    //
-    //        finalizeGame(hero, location);
-    //    }
-
     public void makeMoveHeroFirst(Hero hero, Enemy enemy, boolean heroInPanic) {
         if (!heroInPanic) {
             UsersMove usersMove = new UsersMove(enemy, hero);

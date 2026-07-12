@@ -53,6 +53,8 @@ public class CyberpunkGameWindow extends JFrame {
     private long hackComplexity = -1;
     private long successfulHacks = -1;
 
+    private static final double HP_REGEN_POWER = 0.1;
+
     public CyberpunkGameWindow(Character character) {
         this.character = character;
 
@@ -373,10 +375,9 @@ public class CyberpunkGameWindow extends JFrame {
                 } else {
                     SupportFunctions.showMessage("Hero wins");
                 }
-            } else {
-                SupportFunctions.showMessage("Alarm");
-                updateHeroStats(gameHero);
             }
+
+            updateHeroStats(gameHero);
         }
     }
 
@@ -420,6 +421,7 @@ public class CyberpunkGameWindow extends JFrame {
                     heroPanicChecked = true;
                     cyberpunkController.makeMoveHeroFirst(gameHero, enemy, heroPanicChecked);
                 } else {
+                    heroPanicChecked = false;
                     cyberpunkController.makeMoveHeroFirst(gameHero, enemy, false);
                 }
             }
@@ -429,6 +431,7 @@ public class CyberpunkGameWindow extends JFrame {
                     heroPanicChecked = true;
                     cyberpunkController.makeMoveEnemyFirst(gameHero, enemy, heroPanicChecked);
                 } else {
+                    heroPanicChecked = false;
                     cyberpunkController.makeMoveEnemyFirst(gameHero, enemy, false);
                 }
             }
@@ -466,6 +469,17 @@ public class CyberpunkGameWindow extends JFrame {
             giveReward();
         }
 
+        long newHP = gameHero.getCurrentHP();
+
+        if (hackReward != null || reward != null) {
+            newHP = Double.valueOf(gameHero.getCurrentHP() + gameHero.getMaxHP() * HP_REGEN_POWER)
+                    .intValue();
+        }
+
+        if (newHP > gameHero.getMaxHP()) {
+            newHP = gameHero.getMaxHP();
+        }
+
         long experienceToNextLevel = gameHero.getExperienceToNextLevel();
         long currentLevel = gameHero.getLevel();
         long levelUpCount = 0;
@@ -481,11 +495,11 @@ public class CyberpunkGameWindow extends JFrame {
         if (levelUpCount > 0) {
             long skillPointsCount = levelUpCount * 2;
 
-            additionalSkillpoints = chooseSkillpoints(skillPointsCount);
+            additionalSkillpoints = chooseSkillpoints(skillPointsCount, currentLevel, gameLocationSecuritySystemLevel);
         }
 
         character.getCyberpunkCharacteristics().setLevel(currentLevel);
-        character.getCyberpunkCharacteristics().setCurrentHP(gameHero.getCurrentHP());
+        character.getCyberpunkCharacteristics().setCurrentHP(newHP);
         character.getCyberpunkCharacteristics().setMaxHP(gameHero.getMaxHP());
         character
                 .getCyberpunkCharacteristics()
@@ -509,7 +523,7 @@ public class CyberpunkGameWindow extends JFrame {
         reward.giveReward();
     }
 
-    private java.util.List<Long> chooseSkillpoints(long skillPointsCount) {
+    private java.util.List<Long> chooseSkillpoints(long skillPointsCount, long heroLevel, long locationSecurityLevel) {
         Long infiltration = 0L;
         Long technic = 0L;
         Long cool = 0L;
@@ -530,14 +544,16 @@ public class CyberpunkGameWindow extends JFrame {
                     options,
                     options[0]));
 
+            int elementsCount = 2;
+
             if (choice.get() == 0) {
-                infiltration++;
+                infiltration += (heroLevel + locationSecurityLevel) / elementsCount;
             } else if (choice.get() == 1) {
-                technic++;
+                technic += (heroLevel + locationSecurityLevel) / elementsCount;
             } else if (choice.get() == 2) {
-                cool++;
+                cool += (heroLevel + locationSecurityLevel) / elementsCount;
             } else if (choice.get() == 3) {
-                reputation++;
+                reputation += (heroLevel + locationSecurityLevel) / elementsCount;
             }
         }
 

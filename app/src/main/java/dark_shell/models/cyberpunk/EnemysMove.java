@@ -14,6 +14,7 @@ public class EnemysMove {
     private final long EMPTY_ATTACK_VALUE = 0;
     private final long COOL_DAMAGE_VALUE = 1;
     private final boolean HAVE_STRESS_DEFAULT_VALUE = false;
+    private final int ATTACK_DIVIDER = 2;
 
     public EnemysMove(Enemy enemy, Hero hero) {
         this.enemy = enemy;
@@ -23,7 +24,7 @@ public class EnemysMove {
 
     public void makeMove() {
         this.enemyAttackBuff = SupportFunctions.randomAtOneToFive();
-        this.enemyAttackValue = enemy.getAttack() + this.enemyAttackBuff;
+        this.enemyAttackValue = enemy.getAttack() / ATTACK_DIVIDER + this.enemyAttackBuff;
 
         this.heroOldHealth = this.hero.getCurrentHP();
 
@@ -54,7 +55,10 @@ public class EnemysMove {
 
         enemysMoveRepresentation.append("```");
         enemysMoveRepresentation.append("\n");
-        enemysMoveRepresentation.append("Урон врага: Урон врага + rand(1 - 5) = " + this.enemy.getAttack()
+        enemysMoveRepresentation.append("Урон врага: Урон врага / " + ATTACK_DIVIDER + " + rand(1 - 5) = "
+                + this.enemy.getAttack()
+                + " / "
+                + ATTACK_DIVIDER
                 + " + "
                 + this.enemyAttackBuff
                 + " = "

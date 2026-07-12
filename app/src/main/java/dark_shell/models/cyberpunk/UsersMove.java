@@ -10,7 +10,7 @@ public class UsersMove {
     private long heroAttackBuff;
     private long enemyOldHealth;
 
-    private final int ATTACK_DIVIDER = 2;
+    private final int DEFENCE_DIVIDER = 2;
 
     public UsersMove(Enemy enemy, Hero hero) {
         this.enemy = enemy;
@@ -19,7 +19,7 @@ public class UsersMove {
 
     public void makeMove() {
         this.heroAttackBuff = SupportFunctions.randomAtOneToFive();
-        this.heroAttackValue = this.hero.getTechnic() / ATTACK_DIVIDER - this.enemy.getDefense() + this.heroAttackBuff;
+        this.heroAttackValue = this.hero.getTechnic() - this.enemy.getDefense() / DEFENCE_DIVIDER + this.heroAttackBuff;
 
         enemyOldHealth = this.enemy.getHealth();
 
@@ -42,13 +42,13 @@ public class UsersMove {
         usersMoveRepresentation.append("\n");
         usersMoveRepresentation.append("Степень успешности атаки: rand(1 - 5) = " + this.heroAttackBuff);
         usersMoveRepresentation.append("\n");
-        usersMoveRepresentation.append("Урон игрока: (Уровень техники игрока / " + ATTACK_DIVIDER
-                + " - Защита врага) + rand(1 - 5) = ("
+        usersMoveRepresentation.append("Урон игрока: (Уровень техники игрока  "
+                + " - Защита врага / " + DEFENCE_DIVIDER + ") + rand(1 - 5) = ("
                 + this.hero.getTechnic()
-                + " / "
-                + ATTACK_DIVIDER
                 + " - "
                 + this.enemy.getDefense()
+                + " / "
+                + DEFENCE_DIVIDER
                 + ") + "
                 + this.heroAttackBuff
                 + " = "
