@@ -151,7 +151,22 @@ public class SaveLoadWindow extends JFrame {
     }
 
     private void addLoadSlot(Character character) {
-        tableModel.addRow(new Object[] {character.getName(), character, character});
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(character.getName());
+        builder.append(" [");
+        builder.append("cyb - ");
+        builder.append(character.getCyberpunkCharacteristics().getLevel());
+        builder.append(" lvl ,");
+        builder.append("fan - ");
+        builder.append(character.getFantasyCharacteristics().getLevel());
+        builder.append(" lvl ,");
+        builder.append("apoc - ");
+        builder.append(character.getPostApocalypseCharacteristics().getLevel());
+        builder.append(" lvl ");
+        builder.append("]");
+
+        tableModel.addRow(new Object[] {builder.toString(), character, character});
     }
 
     private void loadCharacterFromFile() {

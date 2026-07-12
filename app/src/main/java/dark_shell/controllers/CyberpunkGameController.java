@@ -6,56 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CyberpunkGameController {
-    //    private static final int DEFAULT_SUCCESS_HACKS = 0;
-    //    private static final boolean HAVE_PANIC = true;
-    //    private static final boolean NO_PANIC = false;
-
-    //    public void play() {
-    //        Hero hero = createHero();
-    //
-    //        Map<Long, Location> locationWithSecuritySystemLevel =
-    //                generateLocationAndCalculateSecuritySystemLevel(hero);
-    //
-    //        Set<Long> locationSecuritySystemLevels =
-    //                locationWithSecuritySystemLevel.keySet();
-    //        long locationSecuritySystemLevel = locationSecuritySystemLevels
-    //                .stream()
-    //                .findFirst()
-    //                .get();
-    //        Location location = locationWithSecuritySystemLevel.get(
-    //                locationSecuritySystemLevel
-    //        );
-    //
-    //        if (hero.getCurrentTactics().equals(Hero.Tactics.HACK)) {
-    //            long complexity = calculateHackComplexity(hero, location);
-    //            long successHacks = DEFAULT_SUCCESS_HACKS;
-    //
-    //            while (!hero.isDead()) {
-    //                successHacks = makeHackStep(
-    //                        hero,
-    //                        location,
-    //                        complexity,
-    //                        successHacks
-    //                );
-    //
-    //                if (successHacks == complexity) {
-    //                    break;
-    //                }
-    //            }
-    //
-    //            finalizeHackGame(hero, location);
-    //        } else if (hero.getCurrentTactics().equals(Hero.Tactics.FIGHT)) {
-    //            Enemy enemy = createEnemy(locationSecuritySystemLevel);
-    //
-    //            boolean heroHaveInitiative = calculateCombatInitiative(
-    //                    hero,
-    //                    location
-    //            );
-    //
-    //            fight(hero, location, enemy, heroHaveInitiative);
-    //        }
-    //    }
-
     public Hero createHero(Hero.Tactics tactic) {
         return new Hero(tactic);
     }
