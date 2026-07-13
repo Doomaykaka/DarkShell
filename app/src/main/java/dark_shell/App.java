@@ -50,8 +50,8 @@ public class App {
     private static void prepareDatabase(ApplicationConfigReader appConfigReader) {
         Logger.getInstance().info("Start database prepare");
 
-        HibernateConfiguration.build(appConfigReader);
         registerEntities();
+        HibernateConfiguration.build(appConfigReader);
 
         Logger.getInstance().info("Database ready");
     }

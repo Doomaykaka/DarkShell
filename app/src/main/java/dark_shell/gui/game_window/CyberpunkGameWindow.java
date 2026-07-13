@@ -10,6 +10,10 @@ import dark_shell.utils.HibernateConfiguration;
 import dark_shell.utils.Logger;
 import dark_shell.utils.SupportFunctions;
 import java.awt.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -116,7 +120,7 @@ public class CyberpunkGameWindow extends JFrame {
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JLabel title = new JLabel("CHARACTER STATS");
-        title.setForeground(new Color(0, 255, 255)); // Неоновый голубой
+        title.setForeground(new Color(0, 255, 255));
         title.setFont(new Font("Monospaced", Font.BOLD, 18));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title);
@@ -217,14 +221,14 @@ public class CyberpunkGameWindow extends JFrame {
     private JPanel createRightPanel() {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(20, 20, 35));
-        panel.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 0, new Color(255, 50, 50))); // Неоновая линия слева
+        panel.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 0, new Color(255, 50, 50)));
         panel.setPreferredSize(new Dimension(280, 0));
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JLabel title = new JLabel("ENEMY STATS");
-        title.setForeground(new Color(255, 50, 50)); // Неоновый красный
+        title.setForeground(new Color(255, 50, 50));
         title.setFont(new Font("Monospaced", Font.BOLD, 18));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(title);
@@ -308,6 +312,18 @@ public class CyberpunkGameWindow extends JFrame {
 
         if (gameEnemy != null && gameEnemy.isDead() || hackReward != null) {
             SupportFunctions.showMessage("Hero wins");
+
+            boolean needNewRound = answerNeedNewRound();
+
+            if (needNewRound) {
+                Logger.getInstance().info("Continue cyberpunk game");
+
+                CyberpunkGameWindow gameWindow = new CyberpunkGameWindow(character);
+                gameWindow.create();
+
+                this.dispose();
+            }
+
             return;
         }
 
@@ -320,6 +336,28 @@ public class CyberpunkGameWindow extends JFrame {
         if (gameEnemy != null && gameEnemy.isDead() || hackReward != null || gameHero.isDead()) {
             saveHero();
         }
+    }
+
+    private boolean answerNeedNewRound() {
+        boolean needNewRound = false;
+
+        Object[] options = {"Yes", "No"};
+
+        AtomicInteger choice = new AtomicInteger();
+
+        choice.set(JOptionPane.showOptionDialog(
+                null,
+                "Continue?",
+                "Game continue",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]));
+
+        needNewRound = choice.get() == 0;
+
+        return needNewRound;
     }
 
     private void initGame(Hero.Tactics tactic) {
@@ -512,7 +550,55 @@ public class CyberpunkGameWindow extends JFrame {
         character.getCyberpunkCharacteristics().setExperience(gameHero.getExperience());
         character.getCyberpunkCharacteristics().setExperienceToNextLevel(experienceToNextLevel);
 
+        updateStatistic();
+
         gameOperationsController.updateCharacter(character);
+    }
+
+    private void updateStatistic() {
+        LocalDate currentDate = Instant.now().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate lastPlayDate = character
+                .getStatistic()
+                .getLastPlayDate()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        long daysInGame = character.getStatistic().getDaysInGame();
+
+        if (!lastPlayDate.equals(currentDate)) {
+            daysInGame++;
+            lastPlayDate = currentDate;
+        }
+
+        long eventsConducted = character.getStatistic().getEventsConducted() + 1;
+        long numberOfSuccesfullEvents = character.getStatistic().getNumberOfSuccessfulEvents();
+
+        if (character.getCyberpunkCharacteristics().getCurrentHP() > 0) {
+            numberOfSuccesfullEvents++;
+        }
+
+        long maxLevel = character.getStatistic().getMaxLevel();
+
+        if (character.getCyberpunkCharacteristics().getLevel() > maxLevel) {
+            maxLevel = character.getCyberpunkCharacteristics().getLevel();
+        }
+
+        long maxExperience = character.getStatistic().getMaxExperience();
+
+        if (character.getCyberpunkCharacteristics().getExperience() > maxExperience) {
+            maxExperience = character.getCyberpunkCharacteristics().getExperience();
+        }
+
+        character
+                .getStatistic()
+                .setLastPlayDate(Date.from(
+                        lastPlayDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        character.getStatistic().setDaysInGame(daysInGame);
+        character.getStatistic().setEventsConducted(eventsConducted);
+        character.getStatistic().setNumberOfSuccessfulEvents(numberOfSuccesfullEvents);
+        character.getStatistic().setMaxLevel(maxLevel);
+        character.getStatistic().setMaxExperience(maxExperience);
     }
 
     private void giveHackReward() {

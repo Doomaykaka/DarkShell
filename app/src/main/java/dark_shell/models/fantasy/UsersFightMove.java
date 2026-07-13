@@ -11,6 +11,8 @@ public class UsersFightMove {
 
     private long enemyOldHealth;
 
+    private final int DEFENCE_DIVIDER = 2;
+
     public UsersFightMove(Enemy enemy, Hero hero) {
         this.enemy = enemy;
         this.hero = hero;
@@ -18,7 +20,8 @@ public class UsersFightMove {
 
     public void makeMove() {
         this.heroAttackBuff = SupportFunctions.randomAtOneToSix();
-        this.heroAttackValue = this.hero.getStrength() - this.enemy.getDefense() + this.heroAttackBuff;
+        this.heroAttackValue =
+                this.hero.getStrength() - this.enemy.getDefense() / DEFENCE_DIVIDER + this.heroAttackBuff;
 
         this.enemyOldHealth = this.enemy.getHealth();
 
@@ -39,14 +42,16 @@ public class UsersFightMove {
 
         usersMoveRepresentation.append("```");
         usersMoveRepresentation.append("\n");
-        usersMoveRepresentation.append(
-                "Урон игрока: (Сила игрока - Защита врага) + rand(1 - 6) = (" + this.hero.getStrength()
-                        + " - "
-                        + this.enemy.getDefense()
-                        + ") + "
-                        + this.heroAttackBuff
-                        + " = "
-                        + this.heroAttackValue);
+        usersMoveRepresentation.append("Урон игрока: (Сила игрока - Защита врага / " + DEFENCE_DIVIDER
+                + ") + rand(1 - 6) = (" + this.hero.getStrength()
+                + " - "
+                + this.enemy.getDefense()
+                + " / "
+                + DEFENCE_DIVIDER
+                + ") + "
+                + this.heroAttackBuff
+                + " = "
+                + this.heroAttackValue);
         usersMoveRepresentation.append("\n");
         usersMoveRepresentation.append("Новое здоровье врага: Здоровье врага - Урон игрока = " + this.enemyOldHealth
                 + " - "

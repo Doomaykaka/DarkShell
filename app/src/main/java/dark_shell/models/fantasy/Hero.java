@@ -103,7 +103,7 @@ public class Hero {
         this.currentTactics = currentTactics;
     }
 
-    private long calculateExperienceToNextLevel(long level) {
+    public long calculateExperienceToNextLevel(long level) {
         return Double.valueOf(
                         START_EXPERIENCE_TO_NEXT_LEVEL_VALUE * Math.pow(EXPERIENCE_TO_NEXT_LEVEL_MULTIPLIER, level - 1))
                 .longValue();
@@ -215,6 +215,10 @@ public class Hero {
 
     public Tactics getCurrentTactics() {
         return currentTactics;
+    }
+
+    public void setCurrentTactics(Tactics currentTactics) {
+        this.currentTactics = currentTactics;
     }
 
     @Override

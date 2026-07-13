@@ -6,42 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class FantasyGameController {
-    //    public void play() {
-    //        Hero hero = createHero();
-    //
-    //        Map<Long, Location> locationWithDifficultyLevelOfTheLocation =
-    //                generateLocationAndCalculateDifficultyLevelOfTheLocation(hero);
-    //
-    //        Set<Long> locationWithDifficultyLevels =
-    //                locationWithDifficultyLevelOfTheLocation.keySet();
-    //        long difficultyLevel = locationWithDifficultyLevels
-    //                .stream()
-    //                .findFirst()
-    //                .get();
-    //        Location location = locationWithDifficultyLevelOfTheLocation.get(
-    //                difficultyLevel
-    //        );
-    //
-    //        Enemy enemy = createEnemy(difficultyLevel);
-    //
-    //        boolean heroHaveCombatInitiative = calculateCombatInitiative(
-    //                hero,
-    //                location
-    //        );
-    //
-    //        if (heroHaveCombatInitiative) {
-    //            while (!hero.isDead() && !enemy.isDead()) {
-    //                makeMoveHeroFirst(hero, enemy, difficultyLevel);
-    //            }
-    //        } else {
-    //            while (!hero.isDead() && !enemy.isDead()) {
-    //                makeMoveEnemyFirst(hero, enemy, difficultyLevel);
-    //            }
-    //        }
-    //
-    //        finalizeGame(hero, location);
-    //    }
-
     public Hero createHero(Hero.Tactics tactic) {
         return new Hero(tactic);
     }

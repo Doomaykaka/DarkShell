@@ -4,6 +4,7 @@ import dark_shell.controllers.GameOperationsController;
 import dark_shell.dao.*;
 import dark_shell.gui.game_window.AdditionalGameWindows;
 import dark_shell.models.database.Character;
+import dark_shell.models.database.Statistic;
 import dark_shell.utils.HibernateConfiguration;
 import dark_shell.utils.SupportFunctions;
 import java.awt.*;
@@ -15,6 +16,7 @@ import javax.swing.table.TableCellRenderer;
 
 public class SaveLoadWindow extends JFrame {
     private static GameOperationsController gameOperationsController;
+    private final boolean runInStatisticMode;
     private final JTable table;
     private final DefaultTableModel tableModel;
 
@@ -24,7 +26,9 @@ public class SaveLoadWindow extends JFrame {
     private static final int HEIGHT = 450;
     private static final String WINDOW_TITLE = "Load game";
 
-    public SaveLoadWindow() {
+    public SaveLoadWindow(boolean runInStatisticMode) {
+        this.runInStatisticMode = runInStatisticMode;
+
         boolean isResizable = false;
 
         setTitle(WINDOW_TITLE);
@@ -36,6 +40,11 @@ public class SaveLoadWindow extends JFrame {
         setLayout(new BorderLayout());
 
         String[] columnNames = {"Character name", "Load", "Delete"};
+
+        if (runInStatisticMode) {
+            columnNames = new String[] {"Character name", "View statistic"};
+        }
+
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -48,8 +57,13 @@ public class SaveLoadWindow extends JFrame {
         table.setRowHeight(45);
         table.setAutoCreateRowSorter(true);
 
-        table.getColumnModel().getColumn(1).setCellRenderer(getTableCellRenderer("Load"));
-        table.getColumnModel().getColumn(2).setCellRenderer(getTableCellRenderer("Delete"));
+        if (runInStatisticMode) {
+            table.getColumnModel().getColumn(1).setCellRenderer(getTableCellRenderer("View statistic"));
+        } else {
+            table.getColumnModel().getColumn(1).setCellRenderer(getTableCellRenderer("Load"));
+            table.getColumnModel().getColumn(2).setCellRenderer(getTableCellRenderer("Delete"));
+        }
+
         table.getSelectionModel().addListSelectionListener(getTableListSelectionListener());
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -63,7 +77,9 @@ public class SaveLoadWindow extends JFrame {
         btnLoadFromFile.addActionListener(e -> loadCharacterFromFile());
         bottomRightPanel.add(btnLoadFromFile);
 
-        add(bottomRightPanel, BorderLayout.SOUTH);
+        if (!runInStatisticMode) {
+            add(bottomRightPanel, BorderLayout.SOUTH);
+        }
 
         initController();
         loadCharacters();
@@ -102,19 +118,62 @@ public class SaveLoadWindow extends JFrame {
 
                 Character character = (Character) tableModel.getValueAt(modelRow, 1);
 
-                if (modelColumn == 1) {
-                    setCurrentCharacter(character);
-
-                    SupportFunctions.showMessage("Character loaded");
-
-                    AdditionalGameWindows.selectGameSetting(character);
-
-                    this.dispose();
-                } else if (modelColumn == 2) {
-                    removeCharacter(character);
+                if (runInStatisticMode) {
+                    viewStatsButtonClick(modelColumn, character);
+                } else {
+                    loadRemoveButtonsClick(modelColumn, character);
                 }
             }
         };
+    }
+
+    private void loadRemoveButtonsClick(int modelColumn, Character character) {
+        if (modelColumn == 1) {
+            setCurrentCharacter(character);
+
+            SupportFunctions.showMessage("Character loaded");
+
+            AdditionalGameWindows.selectGameSetting(character);
+
+            this.dispose();
+        } else if (modelColumn == 2) {
+            removeCharacter(character);
+        }
+    }
+
+    private void viewStatsButtonClick(int modelColumn, Character character) {
+        if (modelColumn == 1) {
+            Statistic statistic = character.getStatistic();
+
+            SupportFunctions.showMessage("Character stats loaded");
+
+            StringBuilder builder = new StringBuilder();
+
+            builder.append("Character ");
+            builder.append(character.getName());
+            builder.append(":\n");
+
+            builder.append("last play date - ");
+            builder.append(statistic.getLastPlayDate());
+            builder.append("\n");
+            builder.append("days in game - ");
+            builder.append(statistic.getDaysInGame());
+            builder.append("\n");
+            builder.append("events conducted - ");
+            builder.append(statistic.getEventsConducted());
+            builder.append("\n");
+            builder.append("number of successful events - ");
+            builder.append(statistic.getNumberOfSuccessfulEvents());
+            builder.append("\n");
+            builder.append("max level - ");
+            builder.append(statistic.getMaxLevel());
+            builder.append("\n");
+            builder.append("max experience - ");
+            builder.append(statistic.getMaxExperience());
+            builder.append("\n");
+
+            SupportFunctions.showMessage(builder.toString());
+        }
     }
 
     private void removeCharacter(Character character) {
@@ -187,7 +246,11 @@ public class SaveLoadWindow extends JFrame {
         builder.append(" lvl ");
         builder.append("]");
 
-        tableModel.addRow(new Object[] {builder.toString(), character, character});
+        if (runInStatisticMode) {
+            tableModel.addRow(new Object[] {builder.toString(), character});
+        } else {
+            tableModel.addRow(new Object[] {builder.toString(), character, character});
+        }
     }
 
     private void loadCharacterFromFile() {

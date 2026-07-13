@@ -247,7 +247,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>private long</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#calculateExperienceToNextLevel(long)" class="member-name-link">calculateExperienceToNextLevel</a><wbr>(long&nbsp;level)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
@@ -320,14 +320,17 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isDead()" class="member-name-link">isDead</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spendMana(long)" class="member-name-link">spendMana</a><wbr>(long&nbsp;spendManaValue)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCurrentTactics(dark_shell.models.fantasy.Hero.Tactics)" class="member-name-link">setCurrentTactics</a><wbr>(<a href="Hero.Tactics.html" title="enum class in dark_shell.models.fantasy">Hero.Tactics</a>&nbsp;currentTactics)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeDamage(long)" class="member-name-link">takeDamage</a><wbr>(long&nbsp;damageValue)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#spendMana(long)" class="member-name-link">spendMana</a><wbr>(long&nbsp;spendManaValue)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeDamage(long)" class="member-name-link">takeDamage</a><wbr>(long&nbsp;damageValue)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -613,7 +616,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="calculateExperienceToNextLevel(long)">
 <h3>calculateExperienceToNextLevel</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">calculateExperienceToNextLevel</span><wbr><span class="parameters">(long&nbsp;level)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">calculateExperienceToNextLevel</span><wbr><span class="parameters">(long&nbsp;level)</span></div>
 </section>
 </li>
 <li>
@@ -764,6 +767,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getCurrentTactics()">
 <h3>getCurrentTactics</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Hero.Tactics.html" title="enum class in dark_shell.models.fantasy">Hero.Tactics</a></span>&nbsp;<span class="element-name">getCurrentTactics</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="setCurrentTactics(dark_shell.models.fantasy.Hero.Tactics)">
+<h3>setCurrentTactics</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setCurrentTactics</span><wbr><span class="parameters">(<a href="Hero.Tactics.html" title="enum class in dark_shell.models.fantasy">Hero.Tactics</a>&nbsp;currentTactics)</span></div>
 </section>
 </li>
 <li>

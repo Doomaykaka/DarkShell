@@ -55,7 +55,7 @@ public class Hero {
         this.gold = gold;
     }
 
-    private long calculateExperienceToNextLevel(long level) {
+    public long calculateExperienceToNextLevel(long level) {
         return Double.valueOf(
                         START_EXPERIENCE_TO_NEXT_LEVEL_VALUE * Math.pow(EXPERIENCE_TO_NEXT_LEVEL_MULTIPLIER, level - 1))
                 .longValue();

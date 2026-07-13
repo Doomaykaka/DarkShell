@@ -22,6 +22,7 @@ public class UsersMagicalMove {
     private final int SPELL_TRIGGER_EDGE = 0;
     private final int LOSS_EDGE = 1;
     private final int INTELLEGENCE_DEBUFF_COEFFICIENT = 1;
+    private final int LOCATION_DIFFICULTY_DIVIDER = 2;
 
     public UsersMagicalMove(Hero hero, Enemy enemy, long theDifficultyLevelOfTheLocation) {
         this.hero = hero;
@@ -31,8 +32,9 @@ public class UsersMagicalMove {
 
     public boolean conjure() {
         this.chanceOfSpellBeingTriggered = SupportFunctions.randomAtOneToTwenty();
-        this.spellTriggerRate =
-                this.chanceOfSpellBeingTriggered + this.hero.getIntelligence() - this.theDifficultyLevelOfTheLocation;
+        this.spellTriggerRate = this.chanceOfSpellBeingTriggered
+                + this.hero.getIntelligence()
+                - this.theDifficultyLevelOfTheLocation / LOCATION_DIFFICULTY_DIVIDER;
 
         this.spellWorked = this.spellTriggerRate > SPELL_TRIGGER_EDGE;
 

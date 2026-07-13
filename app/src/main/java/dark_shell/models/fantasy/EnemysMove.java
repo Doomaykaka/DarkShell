@@ -11,6 +11,8 @@ public class EnemysMove {
     private long heroOldHealth;
     private boolean haveStress;
 
+    private final int ATTACK_DIVIDER = 2;
+
     public EnemysMove(Enemy enemy, Hero hero) {
         this.enemy = enemy;
         this.hero = hero;
@@ -18,7 +20,7 @@ public class EnemysMove {
 
     public void makeMove() {
         this.enemyAttackDebuff = SupportFunctions.randomAtOneToTwenty();
-        this.enemyAttackValue = enemy.getAttack() - this.enemyAttackDebuff;
+        this.enemyAttackValue = enemy.getAttack() / ATTACK_DIVIDER - this.enemyAttackDebuff;
 
         this.heroOldHealth = this.hero.getCurrentHP();
 
@@ -43,12 +45,14 @@ public class EnemysMove {
 
         enemysMoveRepresentation.append("```");
         enemysMoveRepresentation.append("\n");
-        enemysMoveRepresentation.append(
-                "Урон врага: (Урон врага - Защита игрока в виде брони) - rand(1 - 4) = (" + this.enemy.getAttack()
-                        + " - 0) - "
-                        + this.enemyAttackDebuff
-                        + " = "
-                        + this.enemyAttackValue);
+        enemysMoveRepresentation.append("Урон врага: (Урон врага / " + ATTACK_DIVIDER
+                + " - Защита игрока в виде брони) - rand(1 - 4) = (" + this.enemy.getAttack()
+                + " / "
+                + ATTACK_DIVIDER
+                + " - 0) - "
+                + this.enemyAttackDebuff
+                + " = "
+                + this.enemyAttackValue);
         enemysMoveRepresentation.append("\n");
         enemysMoveRepresentation.append("Новое здоровье игрока: Здоровье игрока - Урон врага = " + heroOldHealth
                 + " - "

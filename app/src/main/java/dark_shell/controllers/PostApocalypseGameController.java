@@ -6,36 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class PostApocalypseGameController {
-    //    public void play() {
-    //        Hero hero = createHero();
-    //
-    //        Map<Long, Location> locationWithDangerLevel =
-    //                generateLocationAndCalculateDangerLevel(hero);
-    //
-    //        Set<Long> locationDangerLevels = locationWithDangerLevel.keySet();
-    //        long locationDangerLevel = locationDangerLevels
-    //                .stream()
-    //                .findFirst()
-    //                .get();
-    //        Location location = locationWithDangerLevel.get(locationDangerLevel);
-    //
-    //        Enemy enemy = createEnemy(locationDangerLevel);
-    //
-    //        boolean heroHaveCombatInitiative = calculateCombatInitiative(hero);
-    //
-    //        if (heroHaveCombatInitiative) {
-    //            while (!hero.isDead() && !enemy.isDead()) {
-    //                makeMoveHeroFirst(hero, enemy);
-    //            }
-    //        } else {
-    //            while (!hero.isDead() && !enemy.isDead()) {
-    //                makeMoveEnemyFirst(hero, enemy);
-    //            }
-    //        }
-    //
-    //        finalizeGame(hero, location);
-    //    }
-
     public Hero createHero() {
         return new Hero();
     }
